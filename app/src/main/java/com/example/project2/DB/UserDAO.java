@@ -29,7 +29,7 @@ public interface UserDAO {
     List<User> getUserById(int logId);
 
     @Query("SELECT * FROM " + AppDataBase.USER_TABLE + " WHERE mUsername = :username")
-    List<User> getUserByUsername(String username);
+    User getUserByUsername(String username);
 
     @Query("SELECT * FROM " + AppDataBase.USER_TABLE + " WHERE mPassword = :password")
     List<User> getUserByPassword(String password);

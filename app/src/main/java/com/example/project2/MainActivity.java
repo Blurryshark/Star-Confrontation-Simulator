@@ -62,11 +62,12 @@ public class MainActivity extends AppCompatActivity {
                 String username = mUsername.getText().toString();
                 String password = mPassword.getText().toString();
 
-                List<User> users = mUserDAO.getUserByUsername(username);
+                User user = mUserDAO.getUserByUsername(username);
 
-                if(!users.isEmpty()){
-                    if(password.equals(users.get(0).getPassword())){
-                        Intent intent = new Intent(MainActivity.this, LandingPage.class);
+                if(user != null){
+                    if(password.equals(user.getPassword())){
+                        Intent intent = LandingPage.intentFactory(getApplicationContext(),
+                                mUserDAO.getUserByUsername(username).isAdminStatus());
                         startActivity(intent);
                     }
                 } else {
