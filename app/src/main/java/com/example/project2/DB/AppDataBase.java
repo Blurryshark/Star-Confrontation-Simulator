@@ -20,6 +20,7 @@ public abstract class AppDataBase extends RoomDatabase {
     private static final Object LOCK = new Object();
 
     public abstract UserDAO UserDAO();
+    public abstract StarShipDAO StarShipDAO();
 
     public static AppDataBase getUserDbInstance(Context context){
         if(instance == null){

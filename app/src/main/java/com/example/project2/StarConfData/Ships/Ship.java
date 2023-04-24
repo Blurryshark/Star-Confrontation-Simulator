@@ -1,9 +1,13 @@
 package com.example.project2.StarConfData.Ships;
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.Room;
 
 import com.example.project2.DB.AppDataBase;
+import com.example.project2.DB.StarShipDAO;
 import com.example.project2.StarConfData.Abilities.Attack;
 import com.example.project2.StarConfData.Admiral;
 //import com.example.project2.StarConfData.Abilities.TorpedoAttack;
@@ -18,7 +22,7 @@ public class Ship{
     @PrimaryKey(autoGenerate = true)
     private int logId;
 
-    private String shipType;
+    private String mShipType;
     private Integer shields;
     private Integer hull;
     private Admiral admiral;
@@ -35,13 +39,22 @@ public class Ship{
     private Integer maxHull;
     HashMap<String, Integer> stats = new HashMap<>();
 
-    public Ship (){
+    public Ship (Context context){
         /*makes a random ship object, for the decision averse User*/
-        this(makeRandomShip());
+        this(makeRandomShip(), context);
     }
-    public Ship(String shipType){
-        this.shipType = shipType;
+    public Ship(String shipType, Context context){
+        this.mShipType = shipType;
         /*needs to implemented, but will use the shiptype as a key to reference the ShipDB*/
+        StarShipDAO mStarShipDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .build()
+                .StarShipDAO();
+
+        this.setAgi(mStarShipDAO.getShipByShipType(shipType).getAgi());
+        this.setStr(mStarShipDAO.getShipByShipType(shipType).getStr());
+        this.setDef(mStarShipDAO.getShipByShipType(shipType).getDef());
+
     }
 
     private static String makeRandomShip(){
@@ -172,6 +185,18 @@ public class Ship{
 
     public Integer getStr() {
         return str;
+    }
+
+    public void setAgi(Integer agi) {
+        this.agi = agi;
+    }
+
+    public void setDef(Integer def) {
+        this.def = def;
+    }
+
+    public void setStr(Integer str) {
+        this.str = str;
     }
 
     public Integer getMaxShields() {
