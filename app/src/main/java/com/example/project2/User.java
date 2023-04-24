@@ -9,8 +9,9 @@ import com.example.project2.DB.AppDataBase;
 public class User {
 
     @PrimaryKey(autoGenerate = true)
-    private String mUsername;
+    private int mLogId;
 
+    private String mUsername;
     private String mPassword;
     private boolean mAdminStatus;
 
@@ -18,6 +19,14 @@ public class User {
         mUsername = username;
         mPassword = password;
         mAdminStatus = adminStatus;
+    }
+
+    public int getLogId() {
+        return mLogId;
+    }
+
+    public void setLogId(int logId) {
+        mLogId = logId;
     }
 
     public String getUsername() {
