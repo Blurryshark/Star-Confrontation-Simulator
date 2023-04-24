@@ -39,6 +39,8 @@ public class LandingPage extends AppCompatActivity {
 
         Boolean adminStatus = getIntent().getBooleanExtra(MESSAGE,true);
 
+        mButton = mLandingPageBinding.button;
+
         if (adminStatus){
             mButton.setVisibility(View.VISIBLE);
         }
