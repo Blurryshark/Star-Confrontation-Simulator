@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         mUsername = binding.Username;
         mPassword = binding.Password;
+        mSubmit = binding.Submit;
 
         mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
                 .allowMainThreadQueries()
