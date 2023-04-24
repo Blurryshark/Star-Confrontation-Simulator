@@ -20,14 +20,6 @@ public class User {
         mAdminStatus = adminStatus;
     }
 
-    public int getLogId() {
-        return mLogId;
-    }
-
-    public void setLogId(int logId) {
-        mLogId = logId;
-    }
-
     public String getUsername() {
         return mUsername;
     }
@@ -42,5 +34,13 @@ public class User {
 
     public void setPassword(String password) {
         mPassword = password;
+    }
+
+    public boolean isAdminStatus() {
+        return mAdminStatus;
+    }
+
+    public void setAdminStatus(boolean adminStatus) {
+        mAdminStatus = adminStatus;
     }
 }
