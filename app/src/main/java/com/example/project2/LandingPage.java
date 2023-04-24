@@ -25,6 +25,8 @@ public class LandingPage extends AppCompatActivity {
         return intent;
     }
 
+    Boolean logName = getIntent().getBooleanExtra(MESSAGE, true);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -42,6 +44,5 @@ public class LandingPage extends AppCompatActivity {
         
     }
 
-    String logName = getIntent().getStringExtra(MESSAGE);
 
 }
