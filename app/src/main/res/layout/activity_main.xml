@@ -40,8 +40,8 @@
         android:layout_marginTop="168dp"
         android:gravity="center"
         android:hint="Password"
+        android:inputType="textPassword"
         android:textSize="20sp"
-        android:inputType = "textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -56,4 +56,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        lay
+        android:layout_width="1613dp"
+        android:layout_height="2223dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/spacedock" />
 </androidx.constraintlayout.widget.ConstraintLayout>

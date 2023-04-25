@@ -4,12 +4,13 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.example.project2.User;
 
 @Database(entities = {User.class}, version = 1)
-@TypeConverters({DataTypeConverter.class})
+@TypeConverters({Converters.class})
 public abstract class AppDataBase extends RoomDatabase {
     public static final String USER_DATABASE_NAME = "UserDAO.db";
     public static final String USER_TABLE = "User_table";
@@ -21,7 +22,6 @@ public abstract class AppDataBase extends RoomDatabase {
 
     public abstract UserDAO UserDAO();
     public abstract StarShipDAO StarShipDAO();
-
     public static AppDataBase getUserDbInstance(Context context){
         if(instance == null){
             synchronized (LOCK){

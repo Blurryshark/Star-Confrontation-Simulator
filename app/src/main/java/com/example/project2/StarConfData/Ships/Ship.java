@@ -9,6 +9,8 @@ import androidx.room.Room;
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.StarShipDAO;
 import com.example.project2.StarConfData.Abilities.Attack;
+import com.example.project2.StarConfData.Abilities.PhaserAttack;
+import com.example.project2.StarConfData.Abilities.TorpedoAttack;
 import com.example.project2.StarConfData.Admiral;
 //import com.example.project2.StarConfData.Abilities.TorpedoAttack;
 
@@ -29,14 +31,14 @@ public class Ship{
 
 /*these are attributes possessed by all ships. Upon creation of a ship, a ship type will be provided
 * and will be used to reference a Room DB for the values for the given ship type */
-    Integer agi;
-    Integer def;
-    Integer str;
-
-    Attack attack1;
-    Attack attack2;
+    private Integer agi;
+    private Integer def;
+    private Integer str;
     private Integer maxShields;
     private Integer maxHull;
+
+    Attack phaserAttack = new PhaserAttack(this);
+    Attack torpAttack = new TorpedoAttack(this);
     HashMap<String, Integer> stats = new HashMap<>();
 
     public Ship (Context context){
@@ -45,16 +47,19 @@ public class Ship{
     }
     public Ship(String shipType, Context context){
         this.mShipType = shipType;
-        /*needs to implemented, but will use the shiptype as a key to reference the ShipDB*/
+        /*Instantiating a database so data can pulled to create ship objects*/
         StarShipDAO mStarShipDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build()
                 .StarShipDAO();
 
+        /*Pulling values for the required fields to make every ship unique from eachother*/
         this.setAgi(mStarShipDAO.getShipByShipType(shipType).getAgi());
         this.setStr(mStarShipDAO.getShipByShipType(shipType).getStr());
         this.setDef(mStarShipDAO.getShipByShipType(shipType).getDef());
-
+        this.setMaxHull(mStarShipDAO.getShipByShipType(shipType).getMaxHull());
+        this.setMaxShields(mStarShipDAO.getShipByShipType(shipType).getMaxShields());
     }
 
     private static String makeRandomShip(){
@@ -79,6 +84,10 @@ public class Ship{
          *
          * As well, I have implemented get attribute here so that agility and strength are more variable. More detail on my thought
          * process is provided at Ship.getAttribute();
+         *
+         * This implementation was mainly designed for the original implementation of this project, very little
+         * should need to change. I think the only things I will need to change are in regards to how the Admirals will
+         * affect ship behavior
          */
         Random rand = new Random();
         int atk = rand.nextInt();
@@ -88,10 +97,10 @@ public class Ship{
         target.agi = getAttribute(target.getAgi(), stats.get("agi"));
         Integer dmg;
         if ((atk % 2) != 0){
-            dmg = this.attack1.attack(target);
+            dmg = this.phaserAttack.attack(target);
             target.takeDamage(dmg, 1);
         } else {
-            dmg = this.attack2.attack(target);
+            dmg = this.torpAttack.attack(target);
             target.takeDamage(dmg, 2);
         }
         this.str = tempStr;                 // returning the stats to their default values
@@ -107,6 +116,10 @@ public class Ship{
          * the ship still has its shields up, and it is hit by an attack of type: 1 (Phasers), then the incoming damage will \
          * be doubled. If the ship's shields are down, and it is hit by a torpedo, then the incoming damage will be doubled.
          * otherwise, all values are passed normally.
+         *
+         * This implementation was mainly designed for the original implementation of this project, very little
+         * should need to change. I think the only things I will need to change are in regards to how the Admirals will
+         * affect ship behavior
          */
 
         /*This is really just a test case for the implementation of Admirals into the program. Chang evidently has an affinity
@@ -197,6 +210,14 @@ public class Ship{
 
     public void setStr(Integer str) {
         this.str = str;
+    }
+
+    public void setMaxShields(Integer maxShields) {
+        this.maxShields = maxShields;
+    }
+
+    public void setMaxHull(Integer maxHull) {
+        this.maxHull = maxHull;
     }
 
     public Integer getMaxShields() {

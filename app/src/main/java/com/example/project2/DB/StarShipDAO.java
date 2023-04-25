@@ -6,8 +6,9 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.project2.StarConfData.Ships.Ship;
+import com.example.project2.StarConfData.Ships.*;
 
+@Dao
 public interface StarShipDAO {
 
     @Insert
@@ -20,4 +21,5 @@ public interface StarShipDAO {
     void update (Ship... ships);
     @Query("SELECT * FROM " + AppDataBase.SHIP_TABLE + " WHERE mShipType = :shipType")
     Ship getShipByShipType (String shipType);
+
 }

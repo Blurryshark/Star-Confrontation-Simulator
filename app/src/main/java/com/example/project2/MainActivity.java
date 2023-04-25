@@ -33,8 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
     List<User> mUserList;
 
-    User admin = new User("admin2", "admin2", true);
-    User user = new User("User1", "User2", false);
+    String defaultUsername = "user1";
+    String defaultAdminName = "admin1";
+
+    User admin = new User(defaultAdminName, "admin2", true);
+    User user = new User(defaultUsername, "User2", false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 .build()
                 .UserDAO();
 
-        addUser(admin);
-        addUser(user);
+        if(mUserDAO.getUserByUsername(defaultUsername) != null){
+            addUser(user);
+        }
+        if(mUserDAO.getUserByUsername(defaultAdminName) != null){
+            addUser(admin);
+        }
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +94,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void addUser(User newUser){
-        mUserDAO.insert(newUser);
+        if (mUserDAO.getUserByUsername(newUser.getUsername()) != null) {
+            mUserDAO.insert(newUser);
+        }
     }
 
 }
