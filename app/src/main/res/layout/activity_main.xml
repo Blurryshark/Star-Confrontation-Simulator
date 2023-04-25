@@ -7,18 +7,15 @@
     android:layout_gravity="center"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="146dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="600dp"
-        android:gravity="center"
-        android:text="Welcome!"
-        android:textSize="34sp"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="1613dp"
+        android:layout_height="2223dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/spacedock" />
 
     <EditText
         android:id="@id/Username"
@@ -28,6 +25,9 @@
         android:gravity="center"
         android:hint="Username"
         android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +35,7 @@
 
     <EditText
         android:id="@+id/Password"
+        android:textColorHint="#FFFFFF"
         android:layout_width="213dp"
         android:layout_height="70dp"
         android:layout_marginTop="168dp"
@@ -57,14 +58,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        lay
-        android:layout_width="1613dp"
-        android:layout_height="2223dp"
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="146dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="600dp"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:text="Welcome!"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/spacedock" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

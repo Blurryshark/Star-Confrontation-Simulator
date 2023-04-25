@@ -7,9 +7,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
+import com.example.project2.StarConfData.Ships.Ship;
 import com.example.project2.User;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {User.class, Ship.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class AppDataBase extends RoomDatabase {
     public static final String USER_DATABASE_NAME = "UserDAO.db";

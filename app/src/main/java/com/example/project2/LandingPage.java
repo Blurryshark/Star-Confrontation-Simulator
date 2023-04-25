@@ -17,16 +17,18 @@ public class LandingPage extends AppCompatActivity {
     ActivityLandingPageBinding mLandingPageBinding;
 
     Button mButton;
+    Button mViewFleetButton;
+    Button mBuildFleetButton;
+    Button mBattleButton;
 
-    public static final String MESSAGE = "com.example.project2";
-    public static Intent intentFactory(Context packageContext, Boolean admin){
+    public static final String MESSAGE = "message1";
+    public static final String MESSAGE_1 = "message2";
+    public static Intent intentFactory(Context packageContext, Boolean isAdmin, String username){
         Intent intent = new Intent (packageContext, LandingPage.class);
-        intent.putExtra(MESSAGE, admin);
-
+        intent.putExtra(MESSAGE, isAdmin);
+        intent.putExtra(MESSAGE_1, username);
         return intent;
     }
-
-    //Boolean logName = getIntent().getBooleanExtra(MESSAGE, true);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +40,42 @@ public class LandingPage extends AppCompatActivity {
         setContentView(mLandingPageBinding.getRoot());
 
         Boolean adminStatus = getIntent().getBooleanExtra(MESSAGE,true);
+        String username = getIntent().getStringExtra(MESSAGE_1);
 
         mButton = mLandingPageBinding.button;
+        mViewFleetButton = mLandingPageBinding.viewFleetButton;
+        mBuildFleetButton = mLandingPageBinding.buildFleetButton;
+        mBattleButton = mLandingPageBinding.battleButton;
 
         if (adminStatus){
             mButton.setVisibility(View.VISIBLE);
         }
-        
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        mViewFleetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = FleetVIewer.intentFactory(getApplicationContext(),
+                        adminStatus, username);
+            }
+        });
+        mBuildFleetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        mBattleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 

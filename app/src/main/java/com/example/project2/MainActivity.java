@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 if(user != null){
                     if(password.equals(user.getPassword())){
                         Intent intent = LandingPage.intentFactory(getApplicationContext(),
-                                mUserDAO.getUserByUsername(username).isAdminStatus());
+                                mUserDAO.getUserByUsername(username).isAdminStatus(), username);
                         startActivity(intent);
                     }
                 } else {

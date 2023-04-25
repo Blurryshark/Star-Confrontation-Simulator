@@ -6,14 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".LandingPage">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="1362dp"
+        android:layout_height="1629dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bridge" />
+
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="penis"
+        android:layout_width="154dp"
+        android:layout_height="67dp"
+        android:text="admin"
         android:visibility="invisible"
         app:layout_constraintBottom_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/viewFleetButton"
+        android:layout_width="154dp"
+        android:layout_height="67dp"
+        android:text="View Fleets"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.189" />
+
+    <Button
+        android:id="@+id/buildFleetButton"
+        android:layout_width="154dp"
+        android:layout_height="67dp"
+        android:text="Build New Fleet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.304" />
+
+    <Button
+        android:id="@+id/battleButton"
+        android:layout_width="152dp"
+        android:layout_height="72dp"
+        android:text="Battle!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.546" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
