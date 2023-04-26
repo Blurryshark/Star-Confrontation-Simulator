@@ -1,22 +1,16 @@
 package com.example.project2;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Entity;
 import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.UserDAO;
-import com.example.project2.databinding.ActivityMainBinding;
-
-import android.os.Bundle;
 
 import java.util.List;
 
@@ -73,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(user != null){
                     if(password.equals(user.getPassword())){
-                        Intent intent = LandingPage.intentFactory(getApplicationContext(),
+                        Intent intent = LandingPageActivity.intentFactory(getApplicationContext(),
                                 mUserDAO.getUserByUsername(username).isAdminStatus(), username);
                         startActivity(intent);
                     }

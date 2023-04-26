@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LandingPage">
+    tools:context=".LandingPageActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -21,10 +21,12 @@
         android:id="@+id/button"
         android:layout_width="154dp"
         android:layout_height="67dp"
+        android:layout_marginTop="564dp"
         android:text="admin"
         android:visibility="invisible"
         app:layout_constraintBottom_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,10 +37,10 @@
         android:text="View Fleets"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.189" />
+        app:layout_constraintVertical_bias="0.21" />
 
     <Button
         android:id="@+id/buildFleetButton"
@@ -47,10 +49,10 @@
         android:text="Build New Fleet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.423" />
 
     <Button
         android:id="@+id/battleButton"
@@ -59,9 +61,22 @@
         android:text="Battle!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.546" />
+        app:layout_constraintVertical_bias="0.641" />
+
+    <TextView
+        android:id="@+id/WelcomeText"
+        android:layout_width="175dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="Welcome $User !"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/viewFleetButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

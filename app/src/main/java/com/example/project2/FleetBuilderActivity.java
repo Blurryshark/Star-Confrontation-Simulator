@@ -6,18 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class FleetVIewer extends AppCompatActivity {
+public class FleetBuilderActivity extends AppCompatActivity {
 
+    private static final String MESSAGE = "message1";
+    private static final String MESSAGE_1 = "message2";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fleet_viewer);
+        setContentView(R.layout.activity_fleet_builder);
     }
 
-    public static final String MESSAGE = "message1";
-    public static final String MESSAGE_1 = "message2";
     public static Intent intentFactory(Context packageContext, Boolean isAdmin, String username){
-        Intent intent = new Intent (packageContext, LandingPage.class);
+        Intent intent = new Intent (packageContext, LandingPageActivity.class);
         intent.putExtra(MESSAGE, isAdmin);
         intent.putExtra(MESSAGE_1, username);
         return intent;

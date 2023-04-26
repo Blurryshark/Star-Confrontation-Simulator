@@ -12,13 +12,19 @@
         android:theme="@style/Theme.Project2"
         tools:targetApi="31">
         <activity
-            android:name=".FleetVIewer"
+            android:name=".FleetBuilderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdministratorPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FleetVIewerActivity"
             android:exported="false" />
         <activity
             android:name=".AddUserActivity"
             android:exported="false" />
         <activity
-            android:name=".LandingPage"
+            android:name=".LandingPageActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
