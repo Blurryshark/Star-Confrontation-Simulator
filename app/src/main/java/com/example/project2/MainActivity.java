@@ -11,6 +11,8 @@ import android.widget.EditText;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.UserDAO;
+import com.example.project2.StarConfData.Ships.Ship;
+import com.example.project2.databinding.ActivityMainBinding;
 
 import java.util.List;
 
@@ -30,8 +32,16 @@ public class MainActivity extends AppCompatActivity {
     String defaultUsername = "user1";
     String defaultAdminName = "admin1";
 
+    /*Default users*/
     User admin = new User(defaultAdminName, "admin2", true);
     User user = new User(defaultUsername, "User2", false);
+
+    /*Default Starship options, may implement in a List later as the group of default ship entries grows.*/
+    Ship galaxy = new Ship("Galaxy-Class", 6, 15, 12, 7, 15, this);
+    Ship bird = new Ship("BirdOfPrey", 12, 10, 18, 6, 10, this);
+    Ship constitution = new Ship("Constitution-Class", 9, 12, 13, 12, 8, this);
+    Ship warbird = new Ship("WarBird", 4, 18, 12, 10, 10, this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         mUserDAO.delete(admin);
         mUserDAO.delete(user);
+        Ship.deleteShips(this, galaxy, bird, constitution, warbird);
     }
 
     void addUser(User newUser){

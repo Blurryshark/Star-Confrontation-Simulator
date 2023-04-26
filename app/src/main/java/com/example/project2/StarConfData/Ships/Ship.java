@@ -45,6 +45,25 @@ public class Ship{
         /*makes a random ship object, for the decision averse User*/
         this(makeRandomShip(), context);
     }
+    public Ship (String shipType, Integer agi, Integer def, Integer str,
+                 Integer maxShields,
+                 Integer maxHull,
+                 Context context){
+        this.mShipType = shipType;
+        this.agi = agi;
+        this.def = def;
+        this.str = str;
+        this.maxShields = maxShields;
+        this.maxHull = maxHull;
+
+        StarShipDAO mStarShipDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .StarShipDAO();
+
+        mStarShipDAO.insert(this);
+    }
     public Ship(String shipType, Context context){
         this.mShipType = shipType;
         /*Instantiating a database so data can pulled to create ship objects*/
@@ -53,7 +72,11 @@ public class Ship{
                 .fallbackToDestructiveMigration()
                 .build()
                 .StarShipDAO();
-
+        /*Error checking*/
+        if(mStarShipDAO.getShipByShipType(shipType) == null){
+            System.out.println("Error fetching ship");
+            return;
+        }
         /*Pulling values for the required fields to make every ship unique from eachother*/
         this.setAgi(mStarShipDAO.getShipByShipType(shipType).getAgi());
         this.setStr(mStarShipDAO.getShipByShipType(shipType).getStr());
@@ -73,6 +96,17 @@ public class Ship{
                 return "BirdOfPrey";
         }
         return null;
+    }
+    /*This method probably shouldn't be public, but I don't really care. This is just here so that I
+    * can remove the default database entries when the app is destroyed.*/
+    public static void deleteShips ( Context context, Ship... ships){
+        StarShipDAO mStarShipDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .StarShipDAO();
+
+        mStarShipDAO.delete(ships);
     }
 
     public Integer attackTarget(Ship target){
