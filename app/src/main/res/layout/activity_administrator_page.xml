@@ -6,4 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".AdministratorPageActivity">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="1344dp"
+        android:layout_height="1023dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/_b64b84a153bbf36730d2b827b76aaeb" />
 </androidx.constraintlayout.widget.ConstraintLayout>

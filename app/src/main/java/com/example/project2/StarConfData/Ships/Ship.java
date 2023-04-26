@@ -91,9 +91,13 @@ public class Ship{
 
         switch (key){
             case 0:
-                return "Galaxy";
+                return "Galaxy-Class";
             case 1:
                 return "BirdOfPrey";
+            case 2:
+                return "Constitution-Class";
+            case 3:
+                return "WarBird";
         }
         return null;
     }
