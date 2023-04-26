@@ -16,4 +16,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/_b64b84a153bbf36730d2b827b76aaeb" />
+
+
+
+    <Button
+        android:id="@+id/fleetViewButton"
+        android:layout_width="190dp"
+        android:layout_height="80dp"
+        android:text="View All Fleets"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33" />
+
+    <Button
+        android:id="@+id/shipViewButton"
+        android:layout_width="190dp"
+        android:layout_height="80dp"
+        android:text="View All Ships"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.66" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
