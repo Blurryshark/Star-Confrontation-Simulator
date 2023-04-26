@@ -63,7 +63,10 @@ public class LandingPageActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(adminStatus){}
+                if(adminStatus){
+                    Intent intent = AdministratorPageActivity.intentFactory(getApplicationContext(),
+                            adminStatus, username);
+                }
             }
         });
         mViewFleetButton.setOnClickListener(new View.OnClickListener() {
@@ -76,13 +79,15 @@ public class LandingPageActivity extends AppCompatActivity {
         mBuildFleetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = FleetBuilderActivity.intentFactory(getApplicationContext(),
+                        adminStatus, username);
             }
         });
         mBattleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = BattleActivity.intentFactory(getApplicationContext(),
+                        adminStatus, username);
             }
         });
     }
