@@ -1,30 +1,38 @@
 package com.example.project2.StarConfData;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.example.project2.DB.AppDataBase;
 import com.example.project2.StarConfData.Ships.Ship;
 
 import java.util.ArrayList;
 
+@Entity (tableName = AppDataBase.FLEET_TABLE)
 public class Fleet {
-    private ArrayList<Ship> fleet;
-    private Admiral mAdmiral;
-    public static final int MAX_FLEET_SIZE = 3;
+    @PrimaryKey
+    private int mLogId;
 
+    private ArrayList<Ship> mFleet;
+    private Admiral mAdmiral;
+    private String mFleetName;
+    public static final int MAX_FLEET_SIZE = 3;
     public Fleet(){
-        fleet = new ArrayList<>();
+        mFleet = new ArrayList<>();
         mAdmiral = null;
     }
 
     public Fleet(ArrayList<Ship> ships, Admiral admiral){
-        this.fleet = ships;
+        this.mFleet = ships;
         this.mAdmiral = admiral;
     }
 
     public ArrayList<Ship> getFleet() {
-        return fleet;
+        return mFleet;
     }
 
     public void setFleet(ArrayList<Ship> fleet) {
-        this.fleet = fleet;
+        this.mFleet = fleet;
     }
 
     public Admiral getAdmiral() {
@@ -36,12 +44,18 @@ public class Fleet {
     }
 
     public void addShipToFleet(Ship newShip){
-        if(fleet.size() < MAX_FLEET_SIZE){
-            fleet.add(newShip);
+        if(mFleet.size() < MAX_FLEET_SIZE){
+            mFleet.add(newShip);
             System.out.println("Ship added to the fleet!");
             if(this.mAdmiral != null){
                 newShip.setAdmiral(mAdmiral);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return mFleetName + ": " + mFleet.size() + " ships; "
+                + mAdmiral.getAdmiralId() + " commanding";
     }
 }
