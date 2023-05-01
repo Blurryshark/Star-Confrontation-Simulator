@@ -8,6 +8,7 @@ import androidx.room.Update;
 
 import com.example.project2.StarConfData.Fleet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -26,5 +27,5 @@ public interface FleetDAO {
     void getFleetByFleetName (String fleetName);
 
     @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " ORDER BY mFleetName desc")
-    List<Fleet> getFleets ();
+    ArrayList<Fleet> getFleets ();
 }

@@ -15,11 +15,6 @@
             android:name=".ShipViewer"
             android:exported="false" />
         <activity
-            android:name=".AdministratorActivity"
-            android:exported="false"
-            android:label="@string/title_activity_administrator"
-            android:theme="@style/Theme.Project2.NoActionBar" />
-        <activity
             android:name=".FleetBuilderActivity"
             android:exported="false" />
         <activity

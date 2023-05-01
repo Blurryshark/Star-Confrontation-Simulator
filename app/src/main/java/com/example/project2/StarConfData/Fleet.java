@@ -31,6 +31,14 @@ public class Fleet {
         return mFleet;
     }
 
+    public String getFleetName() {
+        return mFleetName;
+    }
+
+    public void setFleetName(String fleetName) {
+        mFleetName = fleetName;
+    }
+
     public void setFleet(ArrayList<Ship> fleet) {
         this.mFleet = fleet;
     }

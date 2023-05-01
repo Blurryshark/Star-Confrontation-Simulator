@@ -1,35 +1,36 @@
 package com.example.project2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.StarConfData.Fleet;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FleetVIewerActivity extends AppCompatActivity {
+public class FleetViewerActivity extends AppCompatActivity {
 
-    private FleetVIewerActivity binding;
+    private FleetViewerActivity mFleetViewerActivityBinding;
 
-    TextView mTextView;
-    Button mEditButton;
-    Button mDeleteButton;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapater;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     FleetDAO mFleetDAO;
 
-    List<Fleet> mFleetList;
+    ArrayList<Fleet> mFleetList;
 
     private static final String MESSAGE = "message1";
     private static final String MESSAGE_1 = "message2";
 
-    List<Fleet> fleets;
+    ArrayList<Fleet> fleets;
     public static Intent intentFactory(Context packageContext, Boolean isAdmin, String username){
         Intent intent = new Intent (packageContext, LandingPageActivity.class);
         intent.putExtra(MESSAGE, isAdmin);
@@ -42,21 +43,12 @@ public class FleetVIewerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fleet_viewer);
 
-
-    }
-
-
-
-    private void refreshDisplay() {
         mFleetList = mFleetDAO.getFleets();
-        if (!mFleetList.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (Fleet log : mFleetList) {
-                sb.append(log.toString());
-            }
-            mTextView.setText(sb.toString());
-        } else {
-            mTextView.setText(" ");
-        }
+
+        mRecyclerView = findViewById(R.id.recyclerView);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapater = new FleetViewAdapater(fleets);
+
+
     }
 }

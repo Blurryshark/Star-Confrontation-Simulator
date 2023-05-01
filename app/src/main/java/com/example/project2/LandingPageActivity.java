@@ -72,7 +72,7 @@ public class LandingPageActivity extends AppCompatActivity {
         mViewFleetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = FleetVIewerActivity.intentFactory(getApplicationContext(),
+                Intent intent = FleetViewerActivity.intentFactory(getApplicationContext(),
                         adminStatus, username);
             }
         });
