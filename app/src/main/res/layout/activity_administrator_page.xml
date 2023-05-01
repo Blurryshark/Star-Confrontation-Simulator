@@ -18,12 +18,25 @@
         app:srcCompat="@drawable/_b64b84a153bbf36730d2b827b76aaeb" />
 
 
+    <TextView
+        android:id="@+id/WelcomeText"
+        android:layout_width="207dp"
+        android:layout_height="74dp"
+        android:gravity="center"
+        android:text="Welcome $User !"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.109" />
 
     <Button
-        android:id="@+id/fleetViewButton"
+        android:id="@+id/viewUsersButton"
         android:layout_width="190dp"
         android:layout_height="80dp"
-        android:text="View All Fleets"
+        android:text="View All Users"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

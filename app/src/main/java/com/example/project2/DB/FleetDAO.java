@@ -23,9 +23,8 @@ public interface FleetDAO {
     @Update
     void update(Fleet... fleets);
 
-    @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " WHERE mFleetName = :fleetName")
-    void getFleetByFleetName (String fleetName);
-
+    @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " WHERE owner = :loggedUser")
+    ArrayList<Fleet> getAllByOwner (String loggedUser);
     @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " ORDER BY mFleetName desc")
     ArrayList<Fleet> getFleets ();
 

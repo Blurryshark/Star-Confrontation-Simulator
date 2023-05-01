@@ -16,14 +16,14 @@ public class AdministratorPageActivity extends AppCompatActivity {
 
     ActivityAdministratorPageBinding mAdminPageBinding;
 
-    Button mFleetViewButton;
+    Button mUsersViewButton;
     Button mShipViewButton;
 
     public static final String MESSAGE = "message1";
     public static final String MESSAGE_1 = "message2";
 
-    TableLayout mTableLayout;
-    ViewPager mViewPager;
+//    TableLayout mTableLayout;
+//    ViewPager mViewPager;
 
 
     @Override
@@ -34,10 +34,10 @@ public class AdministratorPageActivity extends AppCompatActivity {
         mAdminPageBinding = ActivityAdministratorPageBinding.inflate(getLayoutInflater());
         setContentView(mAdminPageBinding.getRoot());
 
-        mFleetViewButton = mAdminPageBinding.fleetViewButton;
+        mUsersViewButton = mAdminPageBinding.viewUsersButton;
         mShipViewButton = mAdminPageBinding.shipViewButton;
 
-        mFleetViewButton.setOnClickListener(new View.OnClickListener() {
+        mUsersViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
