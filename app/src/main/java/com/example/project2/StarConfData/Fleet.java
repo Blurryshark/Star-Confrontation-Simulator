@@ -61,6 +61,10 @@ public class Fleet {
         mAdmiral = admiral;
     }
 
+    public int getLogId() {
+        return mLogId;
+    }
+
     public void addShipToFleet(Ship newShip){
         if(mFleet.size() < MAX_FLEET_SIZE){
             mFleet.add(newShip);

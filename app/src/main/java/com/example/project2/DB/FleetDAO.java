@@ -28,4 +28,7 @@ public interface FleetDAO {
 
     @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " ORDER BY mFleetName desc")
     ArrayList<Fleet> getFleets ();
+
+    @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " WHERE mLogId = :fleetId")
+    Fleet getFleetById(int fleetId);
 }

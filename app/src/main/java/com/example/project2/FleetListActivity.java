@@ -10,12 +10,13 @@ import android.os.Bundle;
 
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.StarConfData.Fleet;
+import com.example.project2.databinding.ActivityFleetListBinding;
 
 import java.util.ArrayList;
 
 public class FleetListActivity extends AppCompatActivity {
 
-    private FleetListActivity mFleetListActivityBinding;
+    ActivityFleetListBinding mFleetListActivityBinding;
 
     private RecyclerView mRecyclerView;
     private FleetViewAdapater mAdapater;
@@ -41,6 +42,9 @@ public class FleetListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fleet_list);
 
+        mFleetListActivityBinding = ActivityFleetListBinding.inflate(getLayoutInflater());
+        setContentView(mFleetListActivityBinding.getRoot());
+
         mFleetList = mFleetDAO.getFleets();
 
         mRecyclerView = findViewById(R.id.recyclerView);
@@ -56,9 +60,9 @@ public class FleetListActivity extends AppCompatActivity {
         /*This is an onClickListener of the adapter of the recycler view. Essentially, when a button
         * in the recycler view is clicked, it will send the user to the fleetViewerActivity, and the
         * intent will pass the admin status, the name of the owner of the fleet associated with the
-        * pressed button, and the name of the logged user, in that order. The name of the logged user
-        * shouldn't be different from the owner of the fleet UNLESS the logged user is an admin
-        * accessing the fleet of another user.*/
+        * pressed button, and the name of the logged user, and the ID of the selected fleet in that
+        * order. The name of the logged user shouldn't be different from the owner of the fleet
+        * UNLESS the logged user is an admin accessing the fleet of another user.*/
         mAdapater.setOnItemClickListener(new FleetViewAdapater.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -66,7 +70,8 @@ public class FleetListActivity extends AppCompatActivity {
                 Intent intent = FleetViewActivity.intentFactory(getApplicationContext(),
                         adminStatus,
                         mAdapater.getFleetArrayList().get(position).getOwner().getUsername(),
-                        username);
+                        username,
+                        mAdapater.getFleetArrayList().get(position).getLogId());
 
             }
         });
