@@ -1,8 +1,10 @@
-package com.example.project2;
+package com.example.project2.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.project2.R;
 
 public class AddUserActivity extends AppCompatActivity {
 

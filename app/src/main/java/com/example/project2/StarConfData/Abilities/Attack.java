@@ -1,6 +1,6 @@
 package com.example.project2.StarConfData.Abilities;
 
-import com.example.project2.StarConfData.Ships.Ship;
+import com.example.project2.StarConfData.Ship;
 
 /* Liam Cristescu
  * 3.5.2023

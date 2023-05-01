@@ -12,28 +12,28 @@
         android:theme="@style/Theme.Project2"
         tools:targetApi="31">
         <activity
-            android:name=".FleetViewActivity"
+            android:name=".Activities.FleetViewActivity"
             android:exported="false" />
         <activity
             android:name=".ShipViewer"
             android:exported="false" />
         <activity
-            android:name=".FleetBuilderActivity"
+            android:name=".Activities.FleetBuilderActivity"
             android:exported="false" />
         <activity
-            android:name=".AdministratorPageActivity"
+            android:name=".Activities.AdministratorPageActivity"
             android:exported="false" />
         <activity
             android:name=".FleetVIewerActivity"
             android:exported="false" />
         <activity
-            android:name=".AddUserActivity"
+            android:name=".Activities.AddUserActivity"
             android:exported="false" />
         <activity
-            android:name=".LandingPageActivity"
+            android:name=".Activities.LandingPageActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

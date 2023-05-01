@@ -1,10 +1,12 @@
-package com.example.project2;
+package com.example.project2.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ShipViewer extends AppCompatActivity {
+import com.example.project2.R;
+
+public class ShipViewerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.example.project2;
+package com.example.project2.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.project2.databinding.ActivityLandingPageBinding;
+import com.example.project2.R;
 
 public class LandingPageActivity extends AppCompatActivity {
 

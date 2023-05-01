@@ -1,4 +1,4 @@
-package com.example.project2;
+package com.example.project2.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -13,11 +13,9 @@ import android.widget.TextView;
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.UserDAO;
+import com.example.project2.R;
 import com.example.project2.StarConfData.Fleet;
-import com.example.project2.StarConfData.Ships.Ship;
-import com.example.project2.databinding.ActivityFleetViewBinding;
-
-import java.util.ArrayList;
+import com.example.project2.StarConfData.Ship;
 
 public class FleetViewActivity extends AppCompatActivity {
 

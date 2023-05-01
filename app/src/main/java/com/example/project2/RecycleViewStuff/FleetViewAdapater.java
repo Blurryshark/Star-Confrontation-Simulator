@@ -1,4 +1,4 @@
-package com.example.project2;
+package com.example.project2.RecycleViewStuff;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project2.R;
 import com.example.project2.StarConfData.Fleet;
 
 import java.util.ArrayList;

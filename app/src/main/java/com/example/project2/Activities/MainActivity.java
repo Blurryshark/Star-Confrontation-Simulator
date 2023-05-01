@@ -1,4 +1,4 @@
-package com.example.project2;
+package com.example.project2.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -11,8 +11,9 @@ import android.widget.EditText;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.UserDAO;
-import com.example.project2.StarConfData.Ships.Ship;
-import com.example.project2.databinding.ActivityMainBinding;
+import com.example.project2.R;
+import com.example.project2.StarConfData.Ship;
+import com.example.project2.StarConfData.User;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.project2.User;
+import com.example.project2.StarConfData.User;
 
 import java.util.List;
 

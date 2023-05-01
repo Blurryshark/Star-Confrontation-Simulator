@@ -1,16 +1,14 @@
-package com.example.project2;
+package com.example.project2.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TableLayout;
 
-import com.example.project2.databinding.ActivityAdministratorPageBinding;
+import com.example.project2.R;
 
 public class AdministratorPageActivity extends AppCompatActivity {
 

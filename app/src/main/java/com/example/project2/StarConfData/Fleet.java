@@ -4,8 +4,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.project2.DB.AppDataBase;
-import com.example.project2.StarConfData.Ships.Ship;
-import com.example.project2.User;
 
 import java.util.ArrayList;
 

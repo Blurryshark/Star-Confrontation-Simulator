@@ -4,12 +4,11 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.example.project2.StarConfData.Fleet;
-import com.example.project2.StarConfData.Ships.Ship;
-import com.example.project2.User;
+import com.example.project2.StarConfData.Ship;
+import com.example.project2.StarConfData.User;
 
 @Database(entities = {User.class, Ship.class, Fleet.class}, version = 1)
 @TypeConverters({Converters.class})

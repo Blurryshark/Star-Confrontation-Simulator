@@ -1,4 +1,4 @@
-package com.example.project2;
+package com.example.project2.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,8 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.project2.DB.FleetDAO;
+import com.example.project2.R;
+import com.example.project2.RecycleViewStuff.FleetViewAdapater;
 import com.example.project2.StarConfData.Fleet;
-import com.example.project2.databinding.ActivityFleetListBinding;
 
 import java.util.ArrayList;
 

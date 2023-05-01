@@ -1,4 +1,4 @@
-package com.example.project2.StarConfData.Ships;
+package com.example.project2.StarConfData;
 
 import android.content.Context;
 
@@ -11,7 +11,6 @@ import com.example.project2.DB.StarShipDAO;
 import com.example.project2.StarConfData.Abilities.Attack;
 import com.example.project2.StarConfData.Abilities.PhaserAttack;
 import com.example.project2.StarConfData.Abilities.TorpedoAttack;
-import com.example.project2.StarConfData.Admiral;
 //import com.example.project2.StarConfData.Abilities.TorpedoAttack;
 
 import java.util.HashMap;
