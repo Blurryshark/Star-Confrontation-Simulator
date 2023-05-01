@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.StarConfData.Ships.Ship;
+import com.example.project2.User;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class Fleet {
     private ArrayList<Ship> mFleet;
     private Admiral mAdmiral;
     private String mFleetName;
+    private User owner;
     public static final int MAX_FLEET_SIZE = 3;
     public Fleet(){
         mFleet = new ArrayList<>();
@@ -25,6 +27,14 @@ public class Fleet {
     public Fleet(ArrayList<Ship> ships, Admiral admiral){
         this.mFleet = ships;
         this.mAdmiral = admiral;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public ArrayList<Ship> getFleet() {

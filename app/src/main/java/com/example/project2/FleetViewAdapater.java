@@ -46,7 +46,7 @@ public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.Fl
 
         holder.mImageView.setImageResource(R.drawable.starfleetbadge);
         holder.mTextView1.setText(currentFleet.getFleetName());
-        holder.mTextView2.setText(currentFleet.getAdmiral().getAdmiralId());
+        holder.mTextView2.setText(currentFleet.getOwner().getUsername());
     }
 
     @Override

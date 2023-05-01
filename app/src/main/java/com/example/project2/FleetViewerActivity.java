@@ -46,9 +46,12 @@ public class FleetViewerActivity extends AppCompatActivity {
         mFleetList = mFleetDAO.getFleets();
 
         mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mAdapater = new FleetViewAdapater(fleets);
 
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapater);
 
     }
 }
