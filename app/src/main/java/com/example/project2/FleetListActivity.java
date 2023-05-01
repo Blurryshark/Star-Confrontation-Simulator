@@ -7,17 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
+
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.StarConfData.Fleet;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class FleetViewerActivity extends AppCompatActivity {
+public class FleetListActivity extends AppCompatActivity {
 
-    private FleetViewerActivity mFleetViewerActivityBinding;
+    private FleetListActivity mFleetListActivityBinding;
 
     private RecyclerView mRecyclerView;
     private FleetViewAdapater mAdapater;
@@ -41,7 +39,7 @@ public class FleetViewerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fleet_viewer);
+        setContentView(R.layout.activity_fleet_list);
 
         mFleetList = mFleetDAO.getFleets();
 
@@ -53,10 +51,23 @@ public class FleetViewerActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapater);
 
+        Boolean adminStatus = getIntent().getBooleanExtra(MESSAGE, true);
+        String username = getIntent().getStringExtra(MESSAGE_1);
+        /*This is an onClickListener of the adapter of the recycler view. Essentially, when a button
+        * in the recycler view is clicked, it will send the user to the fleetViewerActivity, and the
+        * intent will pass the admin status, the name of the owner of the fleet associated with the
+        * pressed button, and the name of the logged user, in that order. The name of the logged user
+        * shouldn't be different from the owner of the fleet UNLESS the logged user is an admin
+        * accessing the fleet of another user.*/
         mAdapater.setOnItemClickListener(new FleetViewAdapater.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 mFleetList.get(position);
+                Intent intent = FleetViewActivity.intentFactory(getApplicationContext(),
+                        adminStatus,
+                        mAdapater.getFleetArrayList().get(position).getOwner().getUsername(),
+                        username);
+
             }
         });
     }

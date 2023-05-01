@@ -72,4 +72,8 @@ public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.Fl
     public int getItemCount() {
         return mFleetArrayList.size();
     }
+
+    public ArrayList<Fleet> getFleetArrayList() {
+        return mFleetArrayList;
+    }
 }
