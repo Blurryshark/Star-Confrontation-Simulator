@@ -20,7 +20,7 @@ public class FleetViewerActivity extends AppCompatActivity {
     private FleetViewerActivity mFleetViewerActivityBinding;
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapater;
+    private FleetViewAdapater mAdapater;
     private RecyclerView.LayoutManager mLayoutManager;
 
     FleetDAO mFleetDAO;
@@ -53,5 +53,11 @@ public class FleetViewerActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapater);
 
+        mAdapater.setOnItemClickListener(new FleetViewAdapater.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                mFleetList.get(position);
+            }
+        });
     }
 }
