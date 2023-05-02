@@ -14,6 +14,7 @@ import com.example.project2.DB.UserDAO;
 import com.example.project2.R;
 import com.example.project2.StarConfData.Ship;
 import com.example.project2.StarConfData.User;
+import com.example.project2.databinding.ActivityMainBinding;
 
 import java.util.List;
 

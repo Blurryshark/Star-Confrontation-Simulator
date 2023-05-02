@@ -7,17 +7,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.UserDAO;
+import com.example.project2.FleetDeleteConfirmationDialog;
 import com.example.project2.R;
 import com.example.project2.StarConfData.Fleet;
 import com.example.project2.StarConfData.Ship;
+import com.example.project2.databinding.ActivityFleetViewBinding;
 
-public class FleetViewActivity extends AppCompatActivity {
+public class FleetViewActivity extends AppCompatActivity implements
+        FleetDeleteConfirmationDialog.FleetDeleteConfirmationDialogListener {
 
     ActivityFleetViewBinding mFleetViewActivityBinding;
 
@@ -83,6 +87,24 @@ public class FleetViewActivity extends AppCompatActivity {
         }
         mFleetShipView.setText(shipViewText.toString());
 
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog();
+            }
+        });
+    }
+
+    public void openDialog() {
+        FleetDeleteConfirmationDialog dialog = new FleetDeleteConfirmationDialog();
+        dialog.show(getSupportFragmentManager(), "DeleteAlertDialog");
+    }
+
+    @Override
+    public void onYesClicked(){
+        Intent intent = FleetListActivity.intentFactory(getApplicationContext(),
+                mIsAdmin,
+                mLoggedUser);
     }
 
     public static Intent intentFactory(Context packageContext, Boolean isAdmin, String fleetOwner,
