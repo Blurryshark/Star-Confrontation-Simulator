@@ -102,6 +102,7 @@ public class FleetViewActivity extends AppCompatActivity implements
 
     @Override
     public void onYesClicked(){
+        mFleetDAO.delete(mFleetDAO.getFleetById(mFleetId));
         Intent intent = FleetListActivity.intentFactory(getApplicationContext(),
                 mIsAdmin,
                 mLoggedUser);
