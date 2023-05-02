@@ -4,20 +4,20 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/admiral_portrait"
+        android:id="@+id/ship_pic"
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:src="@drawable/starfleetbadge" />
 
     <TextView
-        android:id="@+id/admiral_name"
+        android:id="@+id/ship_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/admiral_portrait"
-        android:layout_alignBottom="@+id/admiral_portrait"
+        android:layout_toEndOf="@+id/ship_pic"
+        android:layout_alignBottom="@+id/ship_pic"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="Admiral"
+        android:text="Ship"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:layout_margin="16dp"/>

@@ -24,6 +24,7 @@ public class Ship{
     private int logId;
 
     private String mShipType;
+    private int mShipImage;
     private Integer shields;
     private Integer hull;
     private Admiral admiral;
@@ -275,6 +276,13 @@ public class Ship{
 
     public Admiral getAdmiral() {
         return admiral;
+    }
+
+    public int getShipImage() {
+        return mShipImage;
+    }
+    public String getShipType(){
+        return mShipType;
     }
 
     public void setAdmiral(Admiral admiral) {

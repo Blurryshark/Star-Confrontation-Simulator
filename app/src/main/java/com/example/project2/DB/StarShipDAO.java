@@ -8,6 +8,8 @@ import androidx.room.Update;
 
 import com.example.project2.StarConfData.Ship;
 
+import java.util.ArrayList;
+
 @Dao
 public interface StarShipDAO {
 
@@ -21,5 +23,8 @@ public interface StarShipDAO {
     void update (Ship... ships);
     @Query("SELECT * FROM " + AppDataBase.SHIP_TABLE + " WHERE mShipType = :shipType")
     Ship getShipByShipType (String shipType);
+
+    @Query("SELECT * FROM " + AppDataBase.SHIP_TABLE)
+    ArrayList<Ship> getAllShips();
 
 }

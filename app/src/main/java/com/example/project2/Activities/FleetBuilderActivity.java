@@ -1,6 +1,7 @@
 package com.example.project2.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +9,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
+import com.example.project2.DB.AppDataBase;
+import com.example.project2.DB.StarShipDAO;
 import com.example.project2.R;
 import com.example.project2.RecycleViewStuff.AdmiralAdapter;
+import com.example.project2.RecycleViewStuff.ShipAdapter;
 import com.example.project2.StarConfData.Admiral;
+import com.example.project2.StarConfData.Ship;
 import com.example.project2.databinding.ActivityFleetBuilderBinding;
 
 import java.util.ArrayList;
@@ -22,9 +28,19 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
     ActivityFleetBuilderBinding mFleetBuilderBinding;
 
     private ArrayList<Admiral> mAdmiralList;
+    private ArrayList<Ship> mShipList;
     private AdmiralAdapter mAdmiralAdapter;
+    private ShipAdapter mShipOneAdapter;
+    private ShipAdapter mShipTwoAdapter;
+    private ShipAdapter mShipThreeAdapter;
 
-    Spinner mSpinner;
+    private StarShipDAO mStarShipDAO;
+
+    Spinner mAdmiralSpinner;
+    Spinner mShipOneSpinner;
+    Spinner mShipTwoSpinner;
+    Spinner mShipThreeSpinner;
+    Button mCreateFleetButton;
 
     private static final String MESSAGE = "message1";
     private static final String MESSAGE_1 = "message2";
@@ -38,12 +54,27 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
 
         initList();
 
-        mSpinner = mFleetBuilderBinding.admiralSpinner;
+        mAdmiralSpinner = mFleetBuilderBinding.admiralSpinner;
+        mShipOneSpinner = mFleetBuilderBinding.shipOneSpinner;
+        mShipTwoSpinner = mFleetBuilderBinding.shipTwoSpinner;
+        mShipThreeSpinner = mFleetBuilderBinding.shipThreeSpinner;
 
         mAdmiralAdapter = new AdmiralAdapter(this, mAdmiralList);
-        mSpinner.setAdapter(mAdmiralAdapter);
+        mShipOneAdapter = new ShipAdapter(this, mShipList);
+        mShipTwoAdapter = new ShipAdapter(this, mShipList);
+        mShipThreeAdapter = new ShipAdapter(this, mShipList);
 
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mAdmiralSpinner.setAdapter(mAdmiralAdapter);
+        mShipOneSpinner.setAdapter(mShipOneAdapter);
+        mShipTwoSpinner.setAdapter(mShipTwoAdapter);
+        mShipThreeSpinner.setAdapter(mShipThreeAdapter);
+
+        mStarShipDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
+                        .allowMainThreadQueries()
+                        .build()
+                        .StarShipDAO();
+
+        mAdmiralSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 Admiral clickedAdmiral = (Admiral) adapterView.getItemAtPosition(position);
@@ -58,6 +89,7 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
 
     private void initList() {
         mAdmiralList = new ArrayList<>();
+        mShipList = mStarShipDAO.getAllShips();
         mAdmiralList.add(new Admiral("Sisko", R.drawable.starfleetbadge));
         mAdmiralList.add(new Admiral("Dukat", R.drawable.starfleetbadge));
         mAdmiralList.add(new Admiral("Picard", R.drawable.starfleetbadge));

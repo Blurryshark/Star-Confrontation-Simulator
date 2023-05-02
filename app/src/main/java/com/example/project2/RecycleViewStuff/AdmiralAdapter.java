@@ -40,7 +40,7 @@ public class AdmiralAdapter extends ArrayAdapter<Admiral> {
             );
         }
 
-        ImageView imageViewFlag = convertView.findViewById(R.id.image_view);
+        ImageView imageViewFlag = convertView.findViewById(R.id.admiral_portrait);
         TextView textView = convertView.findViewById(R.id.admiral_name);
 
         Admiral admiral = getItem(position);
