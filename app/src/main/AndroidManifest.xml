@@ -15,16 +15,13 @@
             android:name=".Activities.FleetViewActivity"
             android:exported="false" />
         <activity
-            android:name=".ShipViewer"
+            android:name=".Activities.ShipViewerActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.FleetBuilderActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.AdministratorPageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FleetVIewerActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.AddUserActivity"

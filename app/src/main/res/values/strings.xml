@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">project 2</string>
     <string name="title_activity_administrator">AdministratorActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+
+    <string-array name="admirals">
+        <item>Please Select an Admiral</item>
+        <item>Sisko</item>
+        <item>Dukat</item>
+        <item>Picard</item>
+        <item>Kirk</item>
+        <item>Chang</item>
+    </string-array>
 </resources>

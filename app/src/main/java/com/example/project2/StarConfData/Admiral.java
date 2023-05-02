@@ -4,12 +4,14 @@ import java.util.Random;
 
 public class Admiral {
     private String mAdmiralId;
+    private int mAdmiralImage;
 
     public Admiral(){
         returnRandomAdmiral();
     }
-    public Admiral(String admiralId) {
+    public Admiral(String admiralId, int admiralImage) {
         mAdmiralId = admiralId;
+        mAdmiralImage = admiralImage;
     }
 
     private void returnRandomAdmiral(){
@@ -35,5 +37,13 @@ public class Admiral {
 
     public void setAdmiralId(String admiralId) {
         mAdmiralId = admiralId;
+    }
+
+    public int getAdmiralImage() {
+        return mAdmiralImage;
+    }
+
+    public void setAdmiralImage(int admiralImage) {
+        mAdmiralImage = admiralImage;
     }
 }
