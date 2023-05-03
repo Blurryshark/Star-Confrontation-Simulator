@@ -13,14 +13,17 @@
         android:id="@+id/admiral_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/admiral_portrait"
         android:layout_alignBottom="@+id/admiral_portrait"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_toEndOf="@+id/admiral_portrait"
         android:gravity="center"
         android:text="Admiral"
         android:textColor="@color/black"
-        android:textSize="30sp"
-        android:layout_margin="16dp"/>
+        android:textSize="30sp" />
 
 
 </RelativeLayout>
