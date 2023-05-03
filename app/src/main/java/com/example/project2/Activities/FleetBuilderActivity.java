@@ -80,14 +80,17 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
 
         mStarShipDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
                         .allowMainThreadQueries()
+                        .fallbackToDestructiveMigration()
                         .build()
                         .StarShipDAO();
         mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
                         .allowMainThreadQueries()
+                        .fallbackToDestructiveMigration()
                         .build()
                         .FleetDAO();
         mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
                         .allowMainThreadQueries()
+                        .fallbackToDestructiveMigration()
                         .build()
                         .UserDAO();
 

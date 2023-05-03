@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build()
                 .UserDAO();
 

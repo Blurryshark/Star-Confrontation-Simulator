@@ -3,11 +3,13 @@ package com.example.project2.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.R;
 import com.example.project2.RecycleViewStuff.FleetViewAdapater;
@@ -47,6 +49,12 @@ public class FleetListActivity extends AppCompatActivity {
 
         mFleetListActivityBinding = ActivityFleetListBinding.inflate(getLayoutInflater());
         setContentView(mFleetListActivityBinding.getRoot());
+
+        mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .FleetDAO();
 
         mFleetList = getFleets(isAdmin, username);
 
