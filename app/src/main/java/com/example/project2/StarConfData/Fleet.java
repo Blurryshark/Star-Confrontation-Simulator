@@ -63,6 +63,10 @@ public class Fleet {
         return mLogId;
     }
 
+    public void setLogId(int logId) {
+        mLogId = logId;
+    }
+
     public void addShipToFleet(Ship newShip){
         if(mFleet.size() < MAX_FLEET_SIZE){
             mFleet.add(newShip);

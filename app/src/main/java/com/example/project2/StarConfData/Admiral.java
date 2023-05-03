@@ -46,4 +46,5 @@ public class Admiral {
     public void setAdmiralImage(int admiralImage) {
         mAdmiralImage = admiralImage;
     }
+
 }

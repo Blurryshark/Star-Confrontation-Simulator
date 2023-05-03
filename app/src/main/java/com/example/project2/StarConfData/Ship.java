@@ -83,6 +83,7 @@ public class Ship{
         this.setDef(mStarShipDAO.getShipByShipType(shipType).getDef());
         this.setMaxHull(mStarShipDAO.getShipByShipType(shipType).getMaxHull());
         this.setMaxShields(mStarShipDAO.getShipByShipType(shipType).getMaxShields());
+        this.setShipImage(mStarShipDAO.getShipByShipType(shipType).getShipImage());
     }
 
     private static String makeRandomShip(){
@@ -287,6 +288,46 @@ public class Ship{
 
     public void setAdmiral(Admiral admiral) {
         this.admiral = admiral;
+    }
+
+    public int getLogId() {
+        return logId;
+    }
+
+    public void setShipImage(int shipImage) {
+        mShipImage = shipImage;
+    }
+
+    public void setLogId(int logId) {
+        this.logId = logId;
+    }
+
+    public void setShipType(String shipType) {
+        mShipType = shipType;
+    }
+
+    public Attack getPhaserAttack() {
+        return phaserAttack;
+    }
+
+    public void setPhaserAttack(Attack phaserAttack) {
+        this.phaserAttack = phaserAttack;
+    }
+
+    public Attack getTorpAttack() {
+        return torpAttack;
+    }
+
+    public void setTorpAttack(Attack torpAttack) {
+        this.torpAttack = torpAttack;
+    }
+
+    public HashMap<String, Integer> getStats() {
+        return stats;
+    }
+
+    public void setStats(HashMap<String, Integer> stats) {
+        this.stats = stats;
     }
 
     /*These methods are overrided from their respective classes. equals() and hashCode() are just the standard implementations
