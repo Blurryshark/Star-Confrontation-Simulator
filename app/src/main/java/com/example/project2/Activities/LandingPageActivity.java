@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.project2.R;
+import com.example.project2.databinding.ActivityLandingPageBinding;
 
 public class LandingPageActivity extends AppCompatActivity {
 

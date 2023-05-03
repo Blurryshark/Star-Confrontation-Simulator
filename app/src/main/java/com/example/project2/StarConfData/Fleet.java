@@ -16,6 +16,7 @@ public class Fleet {
     private Admiral mAdmiral;
     private String mFleetName;
     private User owner;
+    private int fleetImage;
     public static final int MAX_FLEET_SIZE = 3;
     public Fleet(){
         mFleet = new ArrayList<>();
@@ -65,6 +66,14 @@ public class Fleet {
 
     public void setLogId(int logId) {
         mLogId = logId;
+    }
+
+    public int getFleetImage() {
+        return fleetImage;
+    }
+
+    public void setFleetImage(int fleetImage) {
+        this.fleetImage = fleetImage;
     }
 
     public void addShipToFleet(Ship newShip){
