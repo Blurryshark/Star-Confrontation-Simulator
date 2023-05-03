@@ -8,6 +8,7 @@ import androidx.room.Room;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.StarShipDAO;
+import com.example.project2.R;
 import com.example.project2.StarConfData.Abilities.Attack;
 import com.example.project2.StarConfData.Abilities.PhaserAttack;
 import com.example.project2.StarConfData.Abilities.TorpedoAttack;
@@ -55,6 +56,10 @@ public class Ship{
         this.str = str;
         this.maxShields = maxShields;
         this.maxHull = maxHull;
+        this.mShipImage = R.drawable.starfleetbadge;
+        if(shipType == "constitution_class"){
+            this.mShipImage = R.drawable.constitution_class;
+        }
 
         StarShipDAO mStarShipDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
                 .allowMainThreadQueries()
@@ -92,13 +97,13 @@ public class Ship{
 
         switch (key){
             case 0:
-                return "Galaxy-Class";
+                return "galaxy_class";
             case 1:
-                return "BirdOfPrey";
+                return "bird_of_prey";
             case 2:
-                return "Constitution-Class";
+                return "constitution_class";
             case 3:
-                return "WarBird";
+                return "war_bird";
         }
         return null;
     }
