@@ -1,6 +1,7 @@
 package com.example.project2.StarConfData;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.project2.DB.AppDataBase;
@@ -16,8 +17,9 @@ public class User {
 
     private String mUsername;
     private String mPassword;
-    private ArrayList<Fleet> mFleets;
     private boolean mAdminStatus;
+    @Ignore
+    private ArrayList<Fleet> mFleets;
 
     public User(String username, String password, boolean adminStatus) {
         mUsername = username;

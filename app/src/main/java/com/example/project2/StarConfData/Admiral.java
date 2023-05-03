@@ -1,8 +1,18 @@
 package com.example.project2.StarConfData;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.example.project2.DB.AppDataBase;
+
 import java.util.Random;
 
+@Entity(tableName = AppDataBase.ADMIRAL_TABLE)
+
 public class Admiral {
+    @PrimaryKey(autoGenerate = true)
+    private int logId;
+
     private String mAdmiralId;
     private int mAdmiralImage;
 
