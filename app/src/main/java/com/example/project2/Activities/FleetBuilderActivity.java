@@ -13,15 +13,19 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.project2.DB.AppDataBase;
+import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.StarShipDAO;
+import com.example.project2.DB.UserDAO;
 import com.example.project2.R;
 import com.example.project2.RecycleViewStuff.AdmiralAdapter;
 import com.example.project2.RecycleViewStuff.ShipAdapter;
 import com.example.project2.StarConfData.Admiral;
+import com.example.project2.StarConfData.Fleet;
 import com.example.project2.StarConfData.Ship;
 import com.example.project2.databinding.ActivityFleetBuilderBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FleetBuilderActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -33,8 +37,13 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
     private ShipAdapter mShipOneAdapter;
     private ShipAdapter mShipTwoAdapter;
     private ShipAdapter mShipThreeAdapter;
+    private HashMap<Integer, Ship> newFleetShips;
+    private Admiral newAdmiral;
+
 
     private StarShipDAO mStarShipDAO;
+    private FleetDAO mFleetDAO;
+    private UserDAO mUserDAO;
 
     Spinner mAdmiralSpinner;
     Spinner mShipOneSpinner;
@@ -73,15 +82,78 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
                         .allowMainThreadQueries()
                         .build()
                         .StarShipDAO();
+        mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
+                        .allowMainThreadQueries()
+                        .build()
+                        .FleetDAO();
+        mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
+                        .allowMainThreadQueries()
+                        .build()
+                        .UserDAO();
+
+
 
         mAdmiralSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 Admiral clickedAdmiral = (Admiral) adapterView.getItemAtPosition(position);
+                newAdmiral = clickedAdmiral;
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mShipOneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            private final Integer SHIP_KEY = 1;
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                Ship clickedShip = (Ship) adapterView.getItemAtPosition(position);
+                newFleetShips.put(SHIP_KEY, clickedShip);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mShipTwoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            private final Integer SHIP_KEY = 2;
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                Ship clickedShip = (Ship) adapterView.getItemAtPosition(position);
+                newFleetShips.put(SHIP_KEY, clickedShip);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mShipThreeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            private final Integer SHIP_KEY = 3;
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                Ship clickedShip = (Ship) adapterView.getItemAtPosition(position);
+                newFleetShips.put(SHIP_KEY, clickedShip);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        mCreateFleetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<Ship> newFleetArrayList= new ArrayList<>();
+                for (Integer i : newFleetShips.keySet()){
+                    newFleetArrayList.add(newFleetShips.get(i));
+                }
+                Fleet newFleet = new Fleet(newFleetArrayList, newAdmiral);
+
+                //newFleet.setOwner(getIntent().getStringExtra(MESSAGE_1));
 
             }
         });
