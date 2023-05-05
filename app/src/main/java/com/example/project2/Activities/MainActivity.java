@@ -3,6 +3,7 @@ package com.example.project2.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     EditText mPassword;
 
     Button mSubmit;
+    Button mNewUser;
 
     UserDAO mUserDAO;
 
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         mUsername = binding.Username;
         mPassword = binding.Password;
         mSubmit = binding.Submit;
+        mNewUser = binding.addUserButton;
 
         mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
                 .allowMainThreadQueries()
@@ -89,8 +92,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        mNewUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = AddUserActivity.intentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
 
 
+    }
+    public static Intent intentFactory (Context context){
+        Intent intent = new Intent (context, AddUserActivity.class);
+        return intent;
     }
 
     @Override
