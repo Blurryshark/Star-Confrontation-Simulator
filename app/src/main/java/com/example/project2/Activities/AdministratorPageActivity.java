@@ -16,6 +16,7 @@ public class AdministratorPageActivity extends AppCompatActivity {
     ActivityAdministratorPageBinding mAdminPageBinding;
 
     Button mUsersViewButton;
+    Button mAddShipButton;
     Button mShipViewButton;
 
     public static final String MESSAGE = "message1";
@@ -35,14 +36,25 @@ public class AdministratorPageActivity extends AppCompatActivity {
 
         mUsersViewButton = mAdminPageBinding.viewUsersButton;
         mShipViewButton = mAdminPageBinding.shipViewButton;
+        mAddShipButton = mAdminPageBinding.addShipButton;
+
+        Boolean mIsAdmin = getIntent().getBooleanExtra(MESSAGE, true);
+        String username = getIntent().getStringExtra(MESSAGE_1);
 
         mUsersViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = UserListActivity.intentFactory(getApplicationContext(), mIsAdmin, username);
+                startActivity(intent);
+            }
+        });
+        mShipViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
-        mShipViewButton.setOnClickListener(new View.OnClickListener() {
+        mAddShipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
