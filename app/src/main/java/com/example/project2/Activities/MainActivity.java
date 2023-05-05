@@ -1,4 +1,4 @@
-package com.example.project2;
+package com.example.project2.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -11,7 +11,9 @@ import android.widget.EditText;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.UserDAO;
-import com.example.project2.StarConfData.Ships.Ship;
+import com.example.project2.R;
+import com.example.project2.StarConfData.Ship;
+import com.example.project2.StarConfData.User;
 import com.example.project2.databinding.ActivityMainBinding;
 
 import java.util.List;
@@ -37,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
     User user = new User(defaultUsername, "User2", false);
 
     /*Default Starship options, may implement in a List later as the group of default ship entries grows.*/
-    Ship galaxy = new Ship("Galaxy-Class", 6, 15, 12, 7, 15, this);
-    Ship bird = new Ship("BirdOfPrey", 12, 10, 18, 6, 10, this);
-    Ship constitution = new Ship("Constitution-Class", 9, 12, 13, 12, 8, this);
-    Ship warbird = new Ship("WarBird", 4, 18, 12, 10, 10, this);
+    Ship galaxy = new Ship("galaxy_class", 6, 15, 12, 7, 15, this);
+    Ship bird = new Ship("bird_of_prey", 12, 10, 18, 6, 10, this);
+    Ship constitution = new Ship("constitution_class", 9, 12, 13, 12, 8, this);
+    Ship warbird = new Ship("war_bird", 4, 18, 12, 10, 10, this);
 
 
     @Override
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build()
                 .UserDAO();
 

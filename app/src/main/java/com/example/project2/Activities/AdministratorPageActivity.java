@@ -1,29 +1,28 @@
-package com.example.project2;
+package com.example.project2.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TableLayout;
 
+import com.example.project2.R;
 import com.example.project2.databinding.ActivityAdministratorPageBinding;
 
 public class AdministratorPageActivity extends AppCompatActivity {
 
     ActivityAdministratorPageBinding mAdminPageBinding;
 
-    Button mFleetViewButton;
+    Button mUsersViewButton;
     Button mShipViewButton;
 
     public static final String MESSAGE = "message1";
     public static final String MESSAGE_1 = "message2";
 
-    TableLayout mTableLayout;
-    ViewPager mViewPager;
+//    TableLayout mTableLayout;
+//    ViewPager mViewPager;
 
 
     @Override
@@ -34,10 +33,10 @@ public class AdministratorPageActivity extends AppCompatActivity {
         mAdminPageBinding = ActivityAdministratorPageBinding.inflate(getLayoutInflater());
         setContentView(mAdminPageBinding.getRoot());
 
-        mFleetViewButton = mAdminPageBinding.fleetViewButton;
+        mUsersViewButton = mAdminPageBinding.viewUsersButton;
         mShipViewButton = mAdminPageBinding.shipViewButton;
 
-        mFleetViewButton.setOnClickListener(new View.OnClickListener() {
+        mUsersViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

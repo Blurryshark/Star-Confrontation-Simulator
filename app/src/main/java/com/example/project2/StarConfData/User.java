@@ -1,6 +1,7 @@
-package com.example.project2;
+package com.example.project2.StarConfData;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.project2.DB.AppDataBase;
@@ -12,12 +13,12 @@ import java.util.ArrayList;
 public class User {
 
     @PrimaryKey(autoGenerate = true)
-    private int mLogId;
+    public int mUserLogId;
 
     private String mUsername;
     private String mPassword;
-    private ArrayList<Fleet> mFleets;
     private boolean mAdminStatus;
+    private int mFleetIdArray;
 
     public User(String username, String password, boolean adminStatus) {
         mUsername = username;
@@ -26,11 +27,11 @@ public class User {
     }
 
     public int getLogId() {
-        return mLogId;
+        return mUserLogId;
     }
 
     public void setLogId(int logId) {
-        mLogId = logId;
+        mUserLogId = logId;
     }
 
     public String getUsername() {
@@ -55,5 +56,21 @@ public class User {
 
     public void setAdminStatus(boolean adminStatus) {
         mAdminStatus = adminStatus;
+    }
+
+    public int getUserLogId() {
+        return mUserLogId;
+    }
+
+    public void setUserLogId(int userLogId) {
+        mUserLogId = userLogId;
+    }
+
+    public int getFleetIdArray() {
+        return mFleetIdArray;
+    }
+
+    public void setFleetIdArray(int fleetIdArray) {
+        mFleetIdArray = fleetIdArray;
     }
 }

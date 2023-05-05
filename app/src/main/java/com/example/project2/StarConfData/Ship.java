@@ -1,20 +1,25 @@
-package com.example.project2.StarConfData.Ships;
+package com.example.project2.StarConfData;
 
 import android.content.Context;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.Room;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
 import com.example.project2.DB.AppDataBase;
+import com.example.project2.DB.Converters;
 import com.example.project2.DB.StarShipDAO;
+import com.example.project2.R;
 import com.example.project2.StarConfData.Abilities.Attack;
 import com.example.project2.StarConfData.Abilities.PhaserAttack;
 import com.example.project2.StarConfData.Abilities.TorpedoAttack;
-import com.example.project2.StarConfData.Admiral;
 //import com.example.project2.StarConfData.Abilities.TorpedoAttack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -22,12 +27,13 @@ import java.util.Random;
 public class Ship{
 
     @PrimaryKey(autoGenerate = true)
-    private int logId;
+    private int mShipLogId;
 
     private String mShipType;
+    private int mShipImage;
     private Integer shields;
     private Integer hull;
-    private Admiral admiral;
+    private int mAdmiralId;
 
 /*these are attributes possessed by all ships. Upon creation of a ship, a ship type will be provided
 * and will be used to reference a Room DB for the values for the given ship type */
@@ -37,10 +43,8 @@ public class Ship{
     private Integer maxShields;
     private Integer maxHull;
 
-    Attack phaserAttack = new PhaserAttack(this);
-    Attack torpAttack = new TorpedoAttack(this);
-    HashMap<String, Integer> stats = new HashMap<>();
 
+    public Ship(){}
     public Ship (Context context){
         /*makes a random ship object, for the decision averse User*/
         this(makeRandomShip(), context);
@@ -53,8 +57,13 @@ public class Ship{
         this.agi = agi;
         this.def = def;
         this.str = str;
+
         this.maxShields = maxShields;
         this.maxHull = maxHull;
+        this.mShipImage = R.drawable.starfleetbadge;
+        if(shipType == "constitution_class"){
+            this.mShipImage = R.drawable.constitution_class;
+        }
 
         StarShipDAO mStarShipDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
                 .allowMainThreadQueries()
@@ -83,6 +92,7 @@ public class Ship{
         this.setDef(mStarShipDAO.getShipByShipType(shipType).getDef());
         this.setMaxHull(mStarShipDAO.getShipByShipType(shipType).getMaxHull());
         this.setMaxShields(mStarShipDAO.getShipByShipType(shipType).getMaxShields());
+        this.setShipImage(mStarShipDAO.getShipByShipType(shipType).getShipImage());
     }
 
     private static String makeRandomShip(){
@@ -91,13 +101,13 @@ public class Ship{
 
         switch (key){
             case 0:
-                return "Galaxy-Class";
+                return "galaxy_class";
             case 1:
-                return "BirdOfPrey";
+                return "bird_of_prey";
             case 2:
-                return "Constitution-Class";
+                return "constitution_class";
             case 3:
-                return "WarBird";
+                return "war_bird";
         }
         return null;
     }
@@ -127,18 +137,20 @@ public class Ship{
          * should need to change. I think the only things I will need to change are in regards to how the Admirals will
          * affect ship behavior
          */
+        Attack phaserAttack = new PhaserAttack(this);
+        Attack torpAttack = new TorpedoAttack(this);
         Random rand = new Random();
         int atk = rand.nextInt();
         Integer tempStr = this.str;         // Temporary variables so that str and agi can be returned to their default values
         Integer tempAgi = target.agi;       // after every attack. This is necessary to keep the pool of random values consistent
-        this.str = getAttribute(getStr(), stats.get("str"));
-        target.agi = getAttribute(target.getAgi(), stats.get("agi"));
+        this.str = getAttribute(getStr(), tempStr);
+        target.agi = getAttribute(target.getAgi(), tempAgi);
         Integer dmg;
         if ((atk % 2) != 0){
-            dmg = this.phaserAttack.attack(target);
+            dmg = phaserAttack.attack(target);
             target.takeDamage(dmg, 1);
         } else {
-            dmg = this.torpAttack.attack(target);
+            dmg = torpAttack.attack(target);
             target.takeDamage(dmg, 2);
         }
         this.str = tempStr;                 // returning the stats to their default values
@@ -162,9 +174,6 @@ public class Ship{
 
         /*This is really just a test case for the implementation of Admirals into the program. Chang evidently has an affinity
         * for Torpedoes /shrug */
-        if (this.getAdmiral().getAdmiralId().equals("Chang")){
-            atkType = 2;
-        }
         if(getShields() >0 && atkType ==1){ //atk 1 means phasers
             damage *= 2;
         } else if (getShields() ==0 && atkType ==2){ // atk 2 means torpedoes
@@ -273,14 +282,46 @@ public class Ship{
     public void setHull(Integer hull) {
         this.hull = hull;
     }
-
-    public Admiral getAdmiral() {
-        return admiral;
+    public int getShipLogId() {
+        return mShipLogId;
     }
 
-    public void setAdmiral(Admiral admiral) {
-        this.admiral = admiral;
+    public void setShipLogId(int shipLogId) {
+        mShipLogId = shipLogId;
     }
+
+    public int getAdmiralId() {
+        return mAdmiralId;
+    }
+
+    public void setAdmiralId(int amiralId) {
+        mAdmiralId = amiralId;
+    }
+
+    public int getShipImage() {
+        return mShipImage;
+    }
+    public String getShipType(){
+        return mShipType;
+    }
+
+
+    public int getLogId() {
+        return mShipLogId;
+    }
+
+    public void setShipImage(int shipImage) {
+        mShipImage = shipImage;
+    }
+
+    public void setLogId(int logId) {
+        this.mShipLogId = logId;
+    }
+
+    public void setShipType(String shipType) {
+        mShipType = shipType;
+    }
+
 
     /*These methods are overrided from their respective classes. equals() and hashCode() are just the standard implementations
      * provided by the IDE, toString() is custom, just displays the shield value and the hull integrity. I had to shorten it a

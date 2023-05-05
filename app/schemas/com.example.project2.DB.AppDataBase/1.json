@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "460374a7206e0318655e11f55c685ac6",
+    "identityHash": "5293cfeaa51e190bb47dac8e3f77e26d",
     "entities": [
       {
         "tableName": "User_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mLogId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mUsername` TEXT, `mPassword` TEXT, `mAdminStatus` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mUserLogId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mUsername` TEXT, `mPassword` TEXT, `mAdminStatus` INTEGER NOT NULL, `mFleetIdArray` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "mLogId",
-            "columnName": "mLogId",
+            "fieldPath": "mUserLogId",
+            "columnName": "mUserLogId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -31,22 +31,274 @@
             "columnName": "mAdminStatus",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "mFleetIdArray",
+            "columnName": "mFleetIdArray",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
-            "mLogId"
-          ],
-          "autoGenerate": true
+            "mUserLogId"
+          ]
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Ship_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mShipLogId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mShipType` TEXT, `mShipImage` INTEGER NOT NULL, `shields` INTEGER, `hull` INTEGER, `mAdmiralId` INTEGER NOT NULL, `agi` INTEGER, `def` INTEGER, `str` INTEGER, `maxShields` INTEGER, `maxHull` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "mShipLogId",
+            "columnName": "mShipLogId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mShipType",
+            "columnName": "mShipType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mShipImage",
+            "columnName": "mShipImage",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shields",
+            "columnName": "shields",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hull",
+            "columnName": "hull",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mAdmiralId",
+            "columnName": "mAdmiralId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "agi",
+            "columnName": "agi",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "def",
+            "columnName": "def",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "str",
+            "columnName": "str",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maxShields",
+            "columnName": "maxShields",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maxHull",
+            "columnName": "maxHull",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "mShipLogId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Fleet_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mFleetId` INTEGER NOT NULL, `mFleetIdList` TEXT, `mAdmiralId` INTEGER NOT NULL, `mFleetName` TEXT, `mOwnerId` INTEGER NOT NULL, `fleetImage` INTEGER NOT NULL, PRIMARY KEY(`mFleetId`))",
+        "fields": [
+          {
+            "fieldPath": "mFleetId",
+            "columnName": "mFleetId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mFleetIdList",
+            "columnName": "mFleetIdList",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mAdmiralId",
+            "columnName": "mAdmiralId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mFleetName",
+            "columnName": "mFleetName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mOwnerId",
+            "columnName": "mOwnerId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fleetImage",
+            "columnName": "fleetImage",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "mFleetId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Admiral_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mAdmiralId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mAdmiralName` TEXT, `mAdmiralImage` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "mAdmiralId",
+            "columnName": "mAdmiralId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mAdmiralName",
+            "columnName": "mAdmiralName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mAdmiralImage",
+            "columnName": "mAdmiralImage",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "mAdmiralId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Fleets_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mUserTableId` INTEGER NOT NULL, `mFleetTableId` INTEGER NOT NULL, `mAdmiralTableId` INTEGER NOT NULL, `mShipTableId` INTEGER NOT NULL, PRIMARY KEY(`mUserTableId`, `mFleetTableId`), FOREIGN KEY(`mUserTableId`) REFERENCES `User_table`(`mUserLogId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`mFleetTableId`) REFERENCES `Fleet_table`(`mFleetId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`mAdmiralTableId`) REFERENCES `Admiral_table`(`mAdmiralId`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`mShipTableId`) REFERENCES `Ship_table`(`mShipLogId`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "mUserTableId",
+            "columnName": "mUserTableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mFleetTableId",
+            "columnName": "mFleetTableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mAdmiralTableId",
+            "columnName": "mAdmiralTableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mShipTableId",
+            "columnName": "mShipTableId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "mUserTableId",
+            "mFleetTableId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "User_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "mUserTableId"
+            ],
+            "referencedColumns": [
+              "mUserLogId"
+            ]
+          },
+          {
+            "table": "Fleet_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "mFleetTableId"
+            ],
+            "referencedColumns": [
+              "mFleetId"
+            ]
+          },
+          {
+            "table": "Admiral_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "mAdmiralTableId"
+            ],
+            "referencedColumns": [
+              "mAdmiralId"
+            ]
+          },
+          {
+            "table": "Ship_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "mShipTableId"
+            ],
+            "referencedColumns": [
+              "mShipLogId"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '460374a7206e0318655e11f55c685ac6')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5293cfeaa51e190bb47dac8e3f77e26d')"
     ]
   }
 }

@@ -2,43 +2,69 @@ package com.example.project2.StarConfData;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.example.project2.DB.AppDataBase;
-import com.example.project2.StarConfData.Ships.Ship;
-import com.example.project2.User;
+import com.example.project2.DB.Converters;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity (tableName = AppDataBase.FLEET_TABLE)
 public class Fleet {
     @PrimaryKey
-    private int mLogId;
+    private int mFleetId;
 
-    private ArrayList<Ship> mFleet;
-    private Admiral mAdmiral;
+    private List<Integer> mFleetIdList;
+    private int mAdmiralId;
     private String mFleetName;
-    private User owner;
+    private int mOwnerId;
+    private int fleetImage;
     public static final int MAX_FLEET_SIZE = 3;
     public Fleet(){
-        mFleet = new ArrayList<>();
-        mAdmiral = null;
+        mFleetIdList = new ArrayList<>();
+        mAdmiralId = 0;
     }
 
-    public Fleet(ArrayList<Ship> ships, Admiral admiral){
-        this.mFleet = ships;
-        this.mAdmiral = admiral;
+    public Fleet(List<Integer> ships, int admiral){
+        this.mFleetIdList = ships;
+        this.mAdmiralId = admiral;
     }
 
-    public User getOwner() {
-        return owner;
+    public int getFleetId() {
+        return mFleetId;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public List<Integer> getFleetIdList() {
+        return mFleetIdList;
     }
 
-    public ArrayList<Ship> getFleet() {
-        return mFleet;
+    public void setFleetIdList(List<Integer> fleetIdList) {
+        mFleetIdList = fleetIdList;
+    }
+
+    public int getAdmiralId() {
+        return mAdmiralId;
+    }
+
+    public void setAdmiralId(int admiralId) {
+        mAdmiralId = admiralId;
+    }
+
+    public int getOwnerId() {
+        return mOwnerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        mOwnerId = ownerId;
+    }
+
+    public void setFleetId(int fleetId) {
+        mFleetId = fleetId;
+    }
+
+    public List<Integer> getFleet() {
+        return mFleetIdList;
     }
 
     public String getFleetName() {
@@ -49,35 +75,47 @@ public class Fleet {
         mFleetName = fleetName;
     }
 
-    public void setFleet(ArrayList<Ship> fleet) {
-        this.mFleet = fleet;
+    public void setFleet(List<Integer> fleet) {
+        this.mFleetIdList = fleet;
     }
 
-    public Admiral getAdmiral() {
-        return mAdmiral;
+    public int getAdmiral() {
+        return mAdmiralId;
     }
 
     public void setAdmiral(Admiral admiral) {
-        mAdmiral = admiral;
+        mAdmiralId = admiral.getAdmiralId();
     }
 
     public int getLogId() {
-        return mLogId;
+        return mFleetId;
+    }
+
+    public void setLogId(int logId) {
+        mFleetId = logId;
+    }
+
+    public int getFleetImage() {
+        return fleetImage;
+    }
+
+    public void setFleetImage(int fleetImage) {
+        this.fleetImage = fleetImage;
     }
 
     public void addShipToFleet(Ship newShip){
-        if(mFleet.size() < MAX_FLEET_SIZE){
-            mFleet.add(newShip);
+        if(mFleetIdList.size() < MAX_FLEET_SIZE){
+            mFleetIdList.add(newShip.getShipLogId());
             System.out.println("Ship added to the fleet!");
-            if(this.mAdmiral != null){
-                newShip.setAdmiral(mAdmiral);
+            if(this.mAdmiralId != 0){
+                newShip.setAdmiralId(mAdmiralId);
             }
         }
     }
 
     @Override
     public String toString() {
-        return mFleetName + ": " + mFleet.size() + " ships; "
-                + mAdmiral.getAdmiralId() + " commanding";
+        return mFleetName + ": " + mFleetIdList.size() + " ships; "
+                + mAdmiralId + " commanding";
     }
 }

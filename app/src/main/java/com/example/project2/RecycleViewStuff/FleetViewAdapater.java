@@ -1,4 +1,4 @@
-package com.example.project2;
+package com.example.project2.RecycleViewStuff;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +8,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project2.R;
 import com.example.project2.StarConfData.Fleet;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.FleetViewHolder> {
 
-    private ArrayList<Fleet> mFleetArrayList;
+    private List<Fleet> mFleetArrayList;
     private OnItemClickListener mListener;
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -47,7 +49,7 @@ public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.Fl
         }
     }
 
-    public FleetViewAdapater(ArrayList<Fleet> fleetArrayList) {
+    public FleetViewAdapater(List<Fleet> fleetArrayList) {
         mFleetArrayList = fleetArrayList;
     }
 
@@ -65,7 +67,7 @@ public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.Fl
 
         holder.mImageView.setImageResource(R.drawable.starfleetbadge);
         holder.mTextView1.setText(currentFleet.getFleetName());
-        holder.mTextView2.setText(currentFleet.getOwner().getUsername());
+        //holder.mTextView2.setText(currentFleet.getOwner().getUsername());
     }
 
     @Override
@@ -73,7 +75,7 @@ public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.Fl
         return mFleetArrayList.size();
     }
 
-    public ArrayList<Fleet> getFleetArrayList() {
+    public List<Fleet> getFleetArrayList() {
         return mFleetArrayList;
     }
 }
