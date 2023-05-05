@@ -1,4 +1,4 @@
-package com.example.project2;
+package com.example.project2.DialogJunk;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,42 +8,42 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class FleetDeleteConfirmationDialog extends AppCompatDialogFragment {
-    private FleetDeleteConfirmationDialogListener listener;
+public class UserDeleteConfirmationDialog extends AppCompatDialogFragment {
+    private UserDeleteConfirmationDialogListener listener;
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Attention!")
-                .setMessage("Are you sure you want to delete this fleet?")
+        builder.setTitle("Delete User?")
+                .setMessage("Delete User and all of their Fleets?")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 })
-                .setPositiveButton("Yes, mothball the Starfleet", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes, dishonorably discharged!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        listener.onYesClicked();
+                        listener.onYesCLicked();
                     }
                 });
         return builder.create();
     }
 
-    public interface FleetDeleteConfirmationDialogListener {
-        void onYesClicked();
+    public interface UserDeleteConfirmationDialogListener {
+        void onYesCLicked();
     }
 
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
 
-        try {
-            listener = (FleetDeleteConfirmationDialogListener) context;
+        try{
+            listener = (UserDeleteConfirmationDialogListener) context;
         } catch (ClassCastException e){
-            throw new ClassCastException(context.toString()
-                    + "must implement FleetDeleteConfirmationDialogListener");
+            throw new ClassCastException(context.toString() + "must implement " +
+                    "UserDeleteConfirmationDialogListener");
         }
     }
 }

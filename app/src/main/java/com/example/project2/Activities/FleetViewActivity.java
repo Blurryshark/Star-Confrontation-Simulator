@@ -15,14 +15,13 @@ import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.FleetsTableDAO;
 import com.example.project2.DB.UserDAO;
-import com.example.project2.FleetDeleteConfirmationDialog;
+import com.example.project2.DialogJunk.FleetDeleteConfirmationDialog;
 import com.example.project2.R;
 import com.example.project2.StarConfData.Fleet;
 import com.example.project2.StarConfData.Ship;
 import com.example.project2.StarConfData.User;
 import com.example.project2.databinding.ActivityFleetViewBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FleetViewActivity extends AppCompatActivity implements
