@@ -7,7 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+import com.example.project2.DB.AppDataBase;
+import com.example.project2.DB.FleetsTableDAO;
 import com.example.project2.R;
 import com.example.project2.StarConfData.Fleet;
 
@@ -15,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.FleetViewHolder> {
+
+    FleetsTableDAO mFleetsTableDAO;
 
     private List<Fleet> mFleetArrayList;
     private OnItemClickListener mListener;
@@ -67,7 +72,6 @@ public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.Fl
 
         holder.mImageView.setImageResource(R.drawable.starfleetbadge);
         holder.mTextView1.setText(currentFleet.getFleetName());
-        //holder.mTextView2.setText(currentFleet.getOwner().getUsername());
     }
 
     @Override

@@ -166,7 +166,7 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
 
     private void initList() {
         mAdmiralList = new ArrayList<>();
-        //mShipList = mStarShipDAO.getAllShips();
+        mShipList = mStarShipDAO.getAllShips();
         mAdmiralList.add(new Admiral("Sisko", R.drawable.starfleetbadge));
         mAdmiralList.add(new Admiral("Dukat", R.drawable.starfleetbadge));
         mAdmiralList.add(new Admiral("Picard", R.drawable.starfleetbadge));

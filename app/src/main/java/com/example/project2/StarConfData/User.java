@@ -73,4 +73,6 @@ public class User {
     public void setFleetIdArray(int fleetIdArray) {
         mFleetIdArray = fleetIdArray;
     }
+
+
 }

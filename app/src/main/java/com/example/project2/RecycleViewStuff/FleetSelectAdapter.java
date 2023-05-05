@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.room.Room;
 
+import com.example.project2.DB.AppDataBase;
+import com.example.project2.DB.FleetsTableDAO;
+import com.example.project2.DB.StarShipDAO;
 import com.example.project2.R;
 import com.example.project2.StarConfData.Fleet;
 
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 
 public class FleetSelectAdapter extends ArrayAdapter<Fleet> {
 
+    StarShipDAO mStarShipDAO;
     public FleetSelectAdapter(Context context, ArrayList<Fleet> fleets){
         super(context, 0, fleets);
     }
@@ -33,12 +38,18 @@ public class FleetSelectAdapter extends ArrayAdapter<Fleet> {
         return super.getDropDownView(position, convertView, parent);
     }
 
-    private View initView (int position, View convertView, ViewGroup parent){
+    private View initView (int position, View convertView, ViewGroup parent, Context context){
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.fleet_spinner_row, parent, false
             );
         }
+
+        mStarShipDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .StarShipDAO();
 
         ImageView imageViewFlag = convertView.findViewById(R.id.fleet_pic);
         TextView fleetNameView = convertView.findViewById(R.id.fleet_name);
@@ -50,10 +61,10 @@ public class FleetSelectAdapter extends ArrayAdapter<Fleet> {
 
         if(fleet != null){
             imageViewFlag.setImageResource(fleet.getFleetImage());
-            fleetNameView.setText(fleet.getFleetName());/*
-            shipOneView.setText(fleet.getFleet().get(0).getShipType());
-            shipTwoView.setText(fleet.getFleet().get(1).getShipType());
-            shipThreeView.setText(fleet.getFleet().get(2).getShipType());*/
+            fleetNameView.setText(fleet.getFleetName());
+            shipOneView.setText(mStarShipDAO.getShipByLogId(fleet.getFleet().get(0)).getShipType());
+            shipTwoView.setText(mStarShipDAO.getShipByLogId(fleet.getFleet().get(1)).getShipType());
+            shipThreeView.setText(mStarShipDAO.getShipByLogId(fleet.getFleet().get(2)).getShipType());
         }
 
         return convertView;
