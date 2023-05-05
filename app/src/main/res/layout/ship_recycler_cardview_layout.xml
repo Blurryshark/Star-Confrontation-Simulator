@@ -28,5 +28,10 @@
             android:text="Ship"
             android:textColor="@color/black"
             android:textSize="30sp" />
+
     </RelativeLayout>
+
+
+
+
 </androidx.cardview.widget.CardView>

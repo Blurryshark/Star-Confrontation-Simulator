@@ -11,6 +11,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RewriteQueriesToDropUnusedColumns;
 import androidx.room.Update;
 
 import com.example.project2.StarConfData.Admiral;
@@ -51,5 +52,8 @@ public interface FleetsTableDAO {
             + "WHERE mFleetTableId=:mFleetId")
     List<Ship> getShipsByFleetId(final int mFleetId);
 
+    @Query("SELECT * FROM " + FLEET_TABLE + " INNER JOIN " + FLEETS_TABLE + " ON mFleetId=mFleetTableId " +
+            "WHERE mShipTableId=:mShipLogId")
+    List<Fleet> getFleetsByShipType(final int mShipLogId);
 
 }

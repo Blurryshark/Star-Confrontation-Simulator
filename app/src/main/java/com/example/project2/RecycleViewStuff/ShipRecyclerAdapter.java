@@ -17,13 +17,13 @@ import java.util.List;
 
 public class ShipRecyclerAdapter extends RecyclerView.Adapter<ShipRecyclerAdapter.ShipRecyclerHolder> {
     private List<Ship> mShipList;
-    private UserAdapterView.OnItemClickListener mListener;
+    private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
         void OnItemClick(int position);
     }
 
-    public void setOnItemClickListener(UserAdapterView.OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener){
         mListener = listener;
     }
 
@@ -31,7 +31,7 @@ public class ShipRecyclerAdapter extends RecyclerView.Adapter<ShipRecyclerAdapte
         public ImageView mImageView;
         public TextView mTextView;
 
-        public ShipRecyclerHolder (View itemView, UserAdapterView.OnItemClickListener listener) {
+        public ShipRecyclerHolder (View itemView, OnItemClickListener listener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView);
             mTextView = itemView.findViewById(R.id.textView);

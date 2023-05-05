@@ -29,7 +29,7 @@ public class Ship{
     @PrimaryKey(autoGenerate = true)
     private int mShipLogId;
 
-    private String mShipType;
+    public String mShipType;
     private int mShipImage;
     private Integer shields;
     private Integer hull;

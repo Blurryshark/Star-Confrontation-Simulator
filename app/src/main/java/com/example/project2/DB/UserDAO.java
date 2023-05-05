@@ -25,9 +25,6 @@ public interface UserDAO {
     @Query("SELECT * FROM " + AppDataBase.USER_TABLE)
     List<User> getUser();
 
-    @Query("SELECT * FROM " + AppDataBase.USER_TABLE + " WHERE mUserLogId=:logId")
-    List<User> getUserById(int logId);
-
     @Query("SELECT * FROM " + AppDataBase.USER_TABLE + " WHERE mUsername=:username")
     User getUserByUsername(String username);
 
