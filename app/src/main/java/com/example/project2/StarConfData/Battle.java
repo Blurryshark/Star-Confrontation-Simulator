@@ -48,7 +48,21 @@ public class Battle {
     public void Fight(){
         while (continueFight()){
             Random rand = new Random();
-            mShipListOne.get(rand.nextInt(3)).attackTarget(mShipListTwo.get(rand.nextInt(3)));
+            int rand1 = rand.nextInt(3);
+            int rand2 = rand.nextInt(3);
+            /*This while loop SHOULD keep generating random numbers until we land on a ship that is
+            * still alive */
+            while(mShipListTwo.get(rand2).getHull() <= 0){
+                rand2 = rand.nextInt(3);
+            }
+            mShipListOne.get(rand1).attackTarget(mShipListTwo.get(rand2));
+
+            rand1 = rand.nextInt(3);
+            rand2 = rand.nextInt(3);
+            while (mShipListOne.get(rand1).getHull() <= 0){
+                rand1 = rand.nextInt(3);
+            }
+            mShipListTwo.get(rand2).attackTarget(mShipListOne.get(rand1));
         }
     }
 
