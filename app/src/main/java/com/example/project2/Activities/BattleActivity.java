@@ -12,6 +12,9 @@ import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.FleetsTableDAO;
 import com.example.project2.DB.UserDAO;
 import com.example.project2.R;
+import com.example.project2.StarConfData.Battle;
+import com.example.project2.StarConfData.Fleet;
+import com.example.project2.StarConfData.User;
 import com.example.project2.databinding.ActivityBattleBinding;
 
 public class BattleActivity extends AppCompatActivity {
@@ -21,6 +24,10 @@ public class BattleActivity extends AppCompatActivity {
     UserDAO mUserDAO;
     FleetDAO mFleetDAO;
     FleetsTableDAO mFleetsTableDAO;
+
+    User mLoggedUser;
+    Fleet mBattleFleetOne;
+    Fleet mBattleFleetTwo;
 
     private static final String MESSAGE = "message1";
     private static final String MESSAGE_1 = "message2";
@@ -51,6 +58,13 @@ public class BattleActivity extends AppCompatActivity {
                 .fallbackToDestructiveMigration()
                 .build()
                 .FleetDAO();
+
+        mLoggedUser = mUserDAO.getUserByUsername(getIntent().getStringExtra(MESSAGE));
+        mBattleFleetOne = mFleetDAO.getFleetById(getIntent().getIntExtra(MESSAGE_1, 1));
+        mBattleFleetTwo = mFleetDAO.getFleetById(getIntent().getIntExtra(MESSAGE_2, 2));
+
+        Battle battle = new Battle(mLoggedUser, mBattleFleetOne, mBattleFleetTwo, getApplicationContext());
+        battle.Fight();
 
     }
 

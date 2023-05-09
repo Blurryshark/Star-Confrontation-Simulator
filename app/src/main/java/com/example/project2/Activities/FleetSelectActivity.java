@@ -112,7 +112,14 @@ public class FleetSelectActivity extends AppCompatActivity {
             }
         });
 
-
+        mBattleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = BattleActivity.intentFactory(getApplicationContext(), mCurrentUser.getUsername(),
+                        mSelectedFleetOne.getFleetId(), mSelectedFleetTwo.getFleetId());
+                startActivity(intent);
+            }
+        });
         
     }
 
