@@ -29,6 +29,6 @@ public interface StarShipDAO {
     Ship getShipByLogId (int logId);
 
     @Query("SELECT * FROM " + AppDataBase.SHIP_TABLE)
-    ArrayList<Ship> getAllShips();
+    List<Ship> getAllShips();
 
 }

@@ -16,6 +16,13 @@ import com.example.project2.R;
 import com.example.project2.StarConfData.User;
 import com.example.project2.databinding.ActivityAddUserBinding;
 
+/*FINISHED ACTIVITY
+ * .
+ * .
+ * .
+ * .
+ * .
+ * .*/
 public class AddUserActivity extends AppCompatActivity {
 
     ActivityAddUserBinding mAddUserBinding;

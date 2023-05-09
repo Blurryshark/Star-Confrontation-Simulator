@@ -17,6 +17,13 @@ import com.example.project2.StarConfData.Ship;
 import com.example.project2.databinding.ActivityAddShipBinding;
 import com.example.project2.databinding.ActivityUserListBinding;
 
+/*FINISHED ACTIVITY
+ * .
+ * .
+ * .
+ * .
+ * .
+ * .*/
 public class AddShipActivity extends AppCompatActivity {
 
     ActivityAddShipBinding mActivityAddShipBinding;

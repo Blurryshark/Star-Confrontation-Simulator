@@ -22,6 +22,13 @@ import com.example.project2.databinding.ActivityUserListBinding;
 
 import java.util.List;
 
+/*FINISHED ACTIVITY
+* .
+* .
+* .
+* .
+* .
+* .*/
 public class UserListActivity extends AppCompatActivity implements FleetDeleteConfirmationDialog
         .FleetDeleteConfirmationDialogListener{
 

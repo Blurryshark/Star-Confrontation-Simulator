@@ -11,6 +11,13 @@ import android.widget.Button;
 import com.example.project2.R;
 import com.example.project2.databinding.ActivityAdministratorPageBinding;
 
+/*FINISHED ACTIVITY
+ * .
+ * .
+ * .
+ * .
+ * .
+ * .*/
 public class AdministratorPageActivity extends AppCompatActivity {
 
     ActivityAdministratorPageBinding mAdminPageBinding;
@@ -51,13 +58,14 @@ public class AdministratorPageActivity extends AppCompatActivity {
         mShipViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = ShipViewerActivity.intentFactory(getApplicationContext(), username);
+                startActivity(intent);
             }
         });
         mAddShipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = AddShipActivity.intentFactory(getApplicationContext(), username);
             }
         });
     }

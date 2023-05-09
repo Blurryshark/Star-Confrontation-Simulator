@@ -24,6 +24,13 @@ import com.example.project2.databinding.ActivityFleetViewBinding;
 
 import java.util.List;
 
+/*FINISHED ACTIVITY
+ * .
+ * .
+ * .
+ * .
+ * .
+ * .*/
 public class FleetViewActivity extends AppCompatActivity implements
         FleetDeleteConfirmationDialog.FleetDeleteConfirmationDialogListener {
 

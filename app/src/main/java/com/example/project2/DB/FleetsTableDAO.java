@@ -42,7 +42,7 @@ public interface FleetsTableDAO {
 
     @Query ("SELECT * FROM " + FLEET_TABLE + " INNER JOIN " + FLEETS_TABLE + " ON mFleetId=mFleetTableId WHERE "
             + "mUserTableId=:mUserLogId")
-    Fleet getFleetFromUser(final int mUserLogId);
+    List<Fleet> getFleetFromUser(final int mUserLogId);
 
     @Query("SELECT * FROM " + ADMIRAL_TABLE + " INNER JOIN " + FLEETS_TABLE + " ON mAdmiralId=mAdmiralTableId WHERE "
             + "mFleetTableId=:mFleetId")

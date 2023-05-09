@@ -20,6 +20,13 @@ import com.example.project2.databinding.ActivityFleetListBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+/*FINISHED ACTIVITY
+ * .
+ * .
+ * .
+ * .
+ * .
+ * .*/
 public class FleetListActivity extends AppCompatActivity {
 
     ActivityFleetListBinding mFleetListActivityBinding;

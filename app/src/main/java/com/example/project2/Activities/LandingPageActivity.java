@@ -13,6 +13,13 @@ import android.widget.TextView;
 import com.example.project2.R;
 import com.example.project2.databinding.ActivityLandingPageBinding;
 
+/*FINISHED ACTIVITY
+ * .
+ * .
+ * .
+ * .
+ * .
+ * .*/
 public class LandingPageActivity extends AppCompatActivity {
 
     ActivityLandingPageBinding mLandingPageBinding;
@@ -87,7 +94,7 @@ public class LandingPageActivity extends AppCompatActivity {
         mBattleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = BattleActivity.intentFactory(getApplicationContext(),
+                Intent intent = FleetSelectActivity.intentFactory(getApplicationContext(),
                         adminStatus, username);
             }
         });

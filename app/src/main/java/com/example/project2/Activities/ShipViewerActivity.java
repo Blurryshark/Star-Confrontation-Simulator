@@ -28,6 +28,13 @@ import com.example.project2.databinding.ActivityShipViewerBinding;
 
 import java.util.List;
 
+/*FINISHED ACTIVITY
+ * .
+ * .
+ * .
+ * .
+ * .
+ * .*/
 public class ShipViewerActivity extends AppCompatActivity implements
         ShipDeleteConfirmationDialog.ShipDeleteConfirmationDialogListener{
 

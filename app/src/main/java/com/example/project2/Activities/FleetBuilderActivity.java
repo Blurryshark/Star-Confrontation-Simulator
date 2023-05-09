@@ -29,6 +29,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/*FINISHED ACTIVITY
+ * .
+ * .
+ * .
+ * .
+ * .
+ * .*/
 public class FleetBuilderActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ActivityFleetBuilderBinding mFleetBuilderBinding;
@@ -69,6 +76,7 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
         mShipOneSpinner = mFleetBuilderBinding.shipOneSpinner;
         mShipTwoSpinner = mFleetBuilderBinding.shipTwoSpinner;
         mShipThreeSpinner = mFleetBuilderBinding.shipThreeSpinner;
+
 
         mAdmiralAdapter = new AdmiralAdapter(this, mAdmiralList);
         mShipOneAdapter = new ShipAdapter(this, mShipList);
@@ -166,7 +174,12 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
 
     private void initList() {
         mAdmiralList = new ArrayList<>();
-        mShipList = mStarShipDAO.getAllShips();
+        List<Ship> tempList = new ArrayList<>();
+        mShipList = new ArrayList<>();
+        tempList = mStarShipDAO.getAllShips();
+        for (Ship ships : tempList){
+            mShipList.add(ships);
+        }
         mAdmiralList.add(new Admiral("Sisko", R.drawable.starfleetbadge));
         mAdmiralList.add(new Admiral("Dukat", R.drawable.starfleetbadge));
         mAdmiralList.add(new Admiral("Picard", R.drawable.starfleetbadge));

@@ -19,6 +19,13 @@ import com.example.project2.databinding.ActivityMainBinding;
 
 import java.util.List;
 
+/*FINISHED ACTIVITY
+ * .
+ * .
+ * .
+ * .
+ * .
+ * .*/
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
