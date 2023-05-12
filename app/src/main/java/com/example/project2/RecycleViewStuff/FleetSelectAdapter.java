@@ -15,6 +15,7 @@ import androidx.room.Room;
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetsTableDAO;
 import com.example.project2.DB.StarShipDAO;
+import com.example.project2.Observer.ContextObserver;
 import com.example.project2.R;
 import com.example.project2.StarConfData.Fleet;
 
@@ -23,29 +24,31 @@ import java.util.ArrayList;
 public class FleetSelectAdapter extends ArrayAdapter<Fleet> {
 
     StarShipDAO mStarShipDAO;
+    ContextObserver mObserver = new ContextObserver();
     public FleetSelectAdapter(Context context, ArrayList<Fleet> fleets){
         super(context, 0, fleets);
+        mObserver.setContext(context);
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return super.getView(position, convertView, parent);
+        return initView(position, convertView, parent);
     }
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return super.getDropDownView(position, convertView, parent);
+        return initView(position, convertView, parent);
     }
 
-    private View initView (int position, View convertView, ViewGroup parent, Context context){
+    private View initView (int position, View convertView, ViewGroup parent){
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.fleet_spinner_row, parent, false
             );
         }
 
-        mStarShipDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
+        mStarShipDAO = Room.databaseBuilder(mObserver.getContext(), AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build()

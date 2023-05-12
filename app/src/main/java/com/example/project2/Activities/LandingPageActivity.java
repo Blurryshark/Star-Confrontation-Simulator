@@ -74,6 +74,7 @@ public class LandingPageActivity extends AppCompatActivity {
                 if(adminStatus){
                     Intent intent = AdministratorPageActivity.intentFactory(getApplicationContext(),
                             adminStatus, username);
+                    startActivity(intent);
                 }
             }
         });
@@ -82,6 +83,7 @@ public class LandingPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = FleetListActivity.intentFactory(getApplicationContext(),
                         adminStatus, username);
+                startActivity(intent);
             }
         });
         mBuildFleetButton.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +91,7 @@ public class LandingPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = FleetBuilderActivity.intentFactory(getApplicationContext(),
                         adminStatus, username);
+                startActivity(intent);
             }
         });
         mBattleButton.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +99,7 @@ public class LandingPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = FleetSelectActivity.intentFactory(getApplicationContext(),
                         adminStatus, username);
+                startActivity(intent);
             }
         });
     }

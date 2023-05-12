@@ -68,11 +68,11 @@ public class AddShipActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String mShipClass = mShipClassText.getText().toString();
-                int mNewAgi = Integer.getInteger(mAgiText.getText().toString());
-                int mNewDef = Integer.getInteger(mDefText.getText().toString());
-                int mNewStr = Integer.getInteger(mStrText.getText().toString());
-                int mNewShields = Integer.getInteger(mShieldsText.getText().toString());
-                int mNewHull = Integer.getInteger(mHullText.getText().toString());
+                int mNewAgi = Integer.parseInt(mAgiText.getText().toString());
+                int mNewDef = Integer.parseInt(mDefText.getText().toString());
+                int mNewStr = Integer.parseInt(mStrText.getText().toString());
+                int mNewShields = Integer.parseInt(mShieldsText.getText().toString());
+                int mNewHull = Integer.parseInt(mHullText.getText().toString());
 
                 if (mNewAgi > 0 && mNewDef > 0 && mNewStr > 0 && mNewShields > 0 && mNewHull > 0){
                     Ship newShip = new Ship(mShipClass, mNewAgi, mNewDef, mNewStr, mNewShields, mNewHull,
@@ -94,7 +94,7 @@ public class AddShipActivity extends AppCompatActivity {
     }
 
     public static Intent intentFactory(Context context, String loggedUser){
-        Intent intent = new Intent(context, ShipViewerActivity.class);
+        Intent intent = new Intent(context, AddShipActivity.class);
         intent.putExtra(MESSAGE, loggedUser);
         return intent;
     }

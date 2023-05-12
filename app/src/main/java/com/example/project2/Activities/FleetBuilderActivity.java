@@ -10,10 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.project2.DB.AdmiralDAO;
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetDAO;
+import com.example.project2.DB.FleetsTableDAO;
 import com.example.project2.DB.StarShipDAO;
 import com.example.project2.DB.UserDAO;
 import com.example.project2.R;
@@ -49,16 +52,20 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
     private HashMap<Integer, Ship> newFleetShips;
     private Admiral newAdmiral;
 
+    User mLoggedUser;
 
     private StarShipDAO mStarShipDAO;
     private FleetDAO mFleetDAO;
     private UserDAO mUserDAO;
+    private FleetsTableDAO mFleetsTableDAO;
+    private AdmiralDAO mAdmiralDAO;
 
     Spinner mAdmiralSpinner;
     Spinner mShipOneSpinner;
     Spinner mShipTwoSpinner;
     Spinner mShipThreeSpinner;
     Button mCreateFleetButton;
+    EditText mFleetName;
 
     private static final String MESSAGE = "message1";
     private static final String MESSAGE_1 = "message2";
@@ -70,12 +77,45 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
         mFleetBuilderBinding = ActivityFleetBuilderBinding.inflate(getLayoutInflater());
         setContentView(mFleetBuilderBinding.getRoot());
 
+        mStarShipDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .StarShipDAO();
+        mAdmiralDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.ADMIRAL_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .AdmiralDAO();
+        mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .FleetDAO();
+        mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .UserDAO();
+        mFleetsTableDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEETS_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .FleetsTableDAO();
+
+
+        newFleetShips = new HashMap<>();
+
+        mLoggedUser = mUserDAO.getUserByUsername(getIntent().getStringExtra(MESSAGE_1));
+
         initList();
 
         mAdmiralSpinner = mFleetBuilderBinding.admiralSpinner;
         mShipOneSpinner = mFleetBuilderBinding.shipOneSpinner;
         mShipTwoSpinner = mFleetBuilderBinding.shipTwoSpinner;
         mShipThreeSpinner = mFleetBuilderBinding.shipThreeSpinner;
+        mCreateFleetButton = mFleetBuilderBinding.createFleetButton;
+        mFleetName = mFleetBuilderBinding.fleetNameText;
 
 
         mAdmiralAdapter = new AdmiralAdapter(this, mAdmiralList);
@@ -88,21 +128,6 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
         mShipTwoSpinner.setAdapter(mShipTwoAdapter);
         mShipThreeSpinner.setAdapter(mShipThreeAdapter);
 
-        mStarShipDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
-                        .allowMainThreadQueries()
-                        .fallbackToDestructiveMigration()
-                        .build()
-                        .StarShipDAO();
-        mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
-                        .allowMainThreadQueries()
-                        .fallbackToDestructiveMigration()
-                        .build()
-                        .FleetDAO();
-        mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
-                        .allowMainThreadQueries()
-                        .fallbackToDestructiveMigration()
-                        .build()
-                        .UserDAO();
 
 
 
@@ -164,31 +189,37 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
                 for (Integer i : newFleetShips.keySet()){
                     newFleetArrayList.add(newFleetShips.get(i).getShipLogId());
                 }
-                Fleet newFleet = new Fleet(newFleetArrayList, newAdmiral.getAdmiralId());
+                String newFleetName = mFleetName.getText().toString();
+                if (newFleetName != null){
+                    Fleet newFleet = new Fleet(newFleetArrayList, newAdmiral.getAdmiralId(), newFleetName,
+                            mLoggedUser.mUserLogId, getApplicationContext());
 
-                newFleet.setOwnerId(mUserDAO.getUserByUsername(getIntent().getStringExtra(MESSAGE_1)).mUserLogId);
-
+                    Intent intent = LandingPageActivity.intentFactory(getApplicationContext(), getIntent().getBooleanExtra(MESSAGE,
+                            false), mLoggedUser.getUsername());
+                    startActivity(intent);
+                }
             }
         });
     }
 
     private void initList() {
+        List<Admiral> tempAdmiralList = new ArrayList<>();
         mAdmiralList = new ArrayList<>();
+        tempAdmiralList = mAdmiralDAO.getAdmirals();
+        for (Admiral admiral : tempAdmiralList){
+            mAdmiralList.add(admiral);
+        }
         List<Ship> tempList = new ArrayList<>();
         mShipList = new ArrayList<>();
         tempList = mStarShipDAO.getAllShips();
         for (Ship ships : tempList){
             mShipList.add(ships);
         }
-        mAdmiralList.add(new Admiral("Sisko", R.drawable.starfleetbadge));
-        mAdmiralList.add(new Admiral("Dukat", R.drawable.starfleetbadge));
-        mAdmiralList.add(new Admiral("Picard", R.drawable.starfleetbadge));
-        mAdmiralList.add(new Admiral("Kirk", R.drawable.starfleetbadge));
-        mAdmiralList.add(new Admiral("Chang", R.drawable.starfleetbadge));
+
     }
 
     public static Intent intentFactory(Context packageContext, Boolean isAdmin, String username){
-        Intent intent = new Intent (packageContext, LandingPageActivity.class);
+        Intent intent = new Intent (packageContext, FleetBuilderActivity.class);
         intent.putExtra(MESSAGE, isAdmin);
         intent.putExtra(MESSAGE_1, username);
         return intent;

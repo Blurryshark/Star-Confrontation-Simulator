@@ -21,7 +21,7 @@ public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.Fl
 
     FleetsTableDAO mFleetsTableDAO;
 
-    private List<Fleet> mFleetArrayList;
+    private ArrayList<Fleet> mFleetArrayList;
     private OnItemClickListener mListener;
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -54,7 +54,7 @@ public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.Fl
         }
     }
 
-    public FleetViewAdapater(List<Fleet> fleetArrayList) {
+    public FleetViewAdapater(ArrayList<Fleet> fleetArrayList) {
         mFleetArrayList = fleetArrayList;
     }
 
@@ -70,8 +70,9 @@ public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.Fl
     public void onBindViewHolder(@NonNull FleetViewHolder holder, int position) {
         Fleet currentFleet = mFleetArrayList.get(position);
 
-        holder.mImageView.setImageResource(R.drawable.starfleetbadge);
+        holder.mImageView.setImageResource(currentFleet.getFleetImage());
         holder.mTextView1.setText(currentFleet.getFleetName());
+        holder.mTextView2.setText("Line 2");
     }
 
     @Override
@@ -79,7 +80,7 @@ public class FleetViewAdapater extends RecyclerView.Adapter<FleetViewAdapater.Fl
         return mFleetArrayList.size();
     }
 
-    public List<Fleet> getFleetArrayList() {
+    public ArrayList<Fleet> getFleetArrayList() {
         return mFleetArrayList;
     }
 }

@@ -41,7 +41,7 @@ public class BattleActivity extends AppCompatActivity {
         mActivityBattleBinding = ActivityBattleBinding.inflate(getLayoutInflater());
         setContentView(mActivityBattleBinding.getRoot());
 
-        mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_TABLE)
+        mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build()
@@ -53,7 +53,7 @@ public class BattleActivity extends AppCompatActivity {
                 .build()
                 .FleetsTableDAO();
 
-        mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEET_TABLE)
+        mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build()
@@ -70,7 +70,7 @@ public class BattleActivity extends AppCompatActivity {
 
     public static Intent intentFactory(Context packageContext, String username, int fleetOneId,
                                        int fleetTwoId){
-        Intent intent = new Intent (packageContext, LandingPageActivity.class);
+        Intent intent = new Intent (packageContext, BattleActivity.class);
         intent.putExtra(MESSAGE, username);
         intent.putExtra(MESSAGE_1, fleetOneId);
         intent.putExtra(MESSAGE_2, fleetTwoId);

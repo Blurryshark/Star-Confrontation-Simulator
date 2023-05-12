@@ -13,6 +13,7 @@ import com.example.project2.R;
 import com.example.project2.StarConfData.Ship;
 import com.example.project2.StarConfData.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShipRecyclerAdapter extends RecyclerView.Adapter<ShipRecyclerAdapter.ShipRecyclerHolder> {
@@ -33,19 +34,24 @@ public class ShipRecyclerAdapter extends RecyclerView.Adapter<ShipRecyclerAdapte
 
         public ShipRecyclerHolder (View itemView, OnItemClickListener listener) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.imageView);
-            mTextView = itemView.findViewById(R.id.textView);
+            mImageView = itemView.findViewById(R.id.ship_pic);
+            mTextView = itemView.findViewById(R.id.ship_name);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.OnItemClick(position);
+                        }
+                    }
                 }
             });
         }
     }
 
-    public ShipRecyclerAdapter(List<Ship> shipList) {
+    public ShipRecyclerAdapter(ArrayList<Ship> shipList) {
         mShipList = shipList;
     }
 
@@ -62,7 +68,7 @@ public class ShipRecyclerAdapter extends RecyclerView.Adapter<ShipRecyclerAdapte
     public void onBindViewHolder(@NonNull ShipRecyclerHolder holder, int position) {
         Ship currentShip = mShipList.get(position);
 
-        holder.mImageView.setImageResource(R.drawable.starfleetbadge);
+        holder.mImageView.setImageResource(currentShip.getShipImage());
         holder.mTextView.setText(currentShip.getShipType());
     }
 

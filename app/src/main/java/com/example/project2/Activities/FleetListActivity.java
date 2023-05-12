@@ -12,9 +12,11 @@ import android.os.Bundle;
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.FleetsTableDAO;
+import com.example.project2.DB.UserDAO;
 import com.example.project2.R;
 import com.example.project2.RecycleViewStuff.FleetViewAdapater;
 import com.example.project2.StarConfData.Fleet;
+import com.example.project2.StarConfData.User;
 import com.example.project2.databinding.ActivityFleetListBinding;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class FleetListActivity extends AppCompatActivity {
 
     FleetDAO mFleetDAO;
     FleetsTableDAO mFleetsTableDAO;
+    UserDAO mUserDAO;
 
     List<Fleet> mFleetList;
 
@@ -44,9 +47,9 @@ public class FleetListActivity extends AppCompatActivity {
     private static final String MESSAGE_1 = "message2";
 
     Boolean isAdmin;
-    String username;
+    User mLoggedUser;
     public static Intent intentFactory(Context packageContext, Boolean isAdmin, String username){
-        Intent intent = new Intent (packageContext, LandingPageActivity.class);
+        Intent intent = new Intent (packageContext, FleetListActivity.class);
         intent.putExtra(MESSAGE, isAdmin);
         intent.putExtra(MESSAGE_1, username);
         return intent;
@@ -57,27 +60,36 @@ public class FleetListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fleet_list);
 
-        mFleetListActivityBinding = ActivityFleetListBinding.inflate(getLayoutInflater());
-        setContentView(mFleetListActivityBinding.getRoot());
-
         mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build()
                 .FleetDAO();
+        mFleetsTableDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEETS_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build().FleetsTableDAO();
+        mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build().UserDAO();
 
-        mFleetList = getFleets(isAdmin, username);
+        isAdmin = getIntent().getBooleanExtra(MESSAGE, true);
+        mLoggedUser = mUserDAO.getUserByUsername(getIntent().getStringExtra(MESSAGE_1));
 
-        mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
+        mFleetList = getFleets(isAdmin, mLoggedUser);
+
+        mRecyclerView = findViewById(R.id.fleetRecyclerView);
         mLayoutManager = new LinearLayoutManager(this);
-        mAdapater = new FleetViewAdapater(mFleetList);
+        ArrayList<Fleet> fleetsViewList = new ArrayList<>();
+        for (Fleet fleet : mFleetList){
+            fleetsViewList.add(fleet);
+        }
+        mAdapater = new FleetViewAdapater(fleetsViewList);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapater);
 
-        isAdmin = getIntent().getBooleanExtra(MESSAGE, true);
-        username = getIntent().getStringExtra(MESSAGE_1);
         /*This is an onClickListener of the adapter of the recycler view. Essentially, when a button
         * in the recycler view is clicked, it will send the user to the fleetViewerActivity, and the
         * intent will pass the admin status, the name of the owner of the fleet associated with the
@@ -90,20 +102,19 @@ public class FleetListActivity extends AppCompatActivity {
                 mFleetList.get(position);
                 Intent intent = FleetViewActivity.intentFactory(getApplicationContext(),
                         isAdmin,
-                        mFleetsTableDAO.getUserFromFleet(mAdapater.getFleetArrayList().get(position)
-                                .getFleetId()).getUsername(),
-                        username,
+                        mAdapater.getFleetArrayList().get(position).getOwnerId(),
+                        mLoggedUser.getUsername(),
                         mAdapater.getFleetArrayList().get(position).getLogId());
-
+                startActivity(intent);
             }
         });
     }
 
-    private List<Fleet> getFleets(Boolean isAdmin, String username){
+    private List<Fleet> getFleets(Boolean isAdmin, User loggedUser){
         if(isAdmin){
             return mFleetDAO.getFleets();
         } else {
-            return mFleetDAO.getAllByOwner(username);
+            return mFleetDAO.getAllByOwner(loggedUser.getUserLogId());
         }
     }
 }

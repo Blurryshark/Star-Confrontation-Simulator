@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.project2.R;
 import com.example.project2.databinding.ActivityAdministratorPageBinding;
@@ -25,6 +26,7 @@ public class AdministratorPageActivity extends AppCompatActivity {
     Button mUsersViewButton;
     Button mAddShipButton;
     Button mShipViewButton;
+    TextView mWelcomeText;
 
     public static final String MESSAGE = "message1";
     public static final String MESSAGE_1 = "message2";
@@ -44,10 +46,12 @@ public class AdministratorPageActivity extends AppCompatActivity {
         mUsersViewButton = mAdminPageBinding.viewUsersButton;
         mShipViewButton = mAdminPageBinding.shipViewButton;
         mAddShipButton = mAdminPageBinding.addShipButton;
+        mWelcomeText = mAdminPageBinding.WelcomeText;
 
         Boolean mIsAdmin = getIntent().getBooleanExtra(MESSAGE, true);
         String username = getIntent().getStringExtra(MESSAGE_1);
 
+        mWelcomeText.setText("Welcome, " + username + "!");
         mUsersViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,6 +70,7 @@ public class AdministratorPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = AddShipActivity.intentFactory(getApplicationContext(), username);
+                startActivity(intent);
             }
         });
     }

@@ -10,13 +10,17 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.project2.DB.AdmiralDAO;
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.FleetsTableDAO;
+import com.example.project2.DB.StarShipDAO;
 import com.example.project2.DB.UserDAO;
 import com.example.project2.DialogJunk.FleetDeleteConfirmationDialog;
 import com.example.project2.R;
+import com.example.project2.StarConfData.Admiral;
 import com.example.project2.StarConfData.Fleet;
 import com.example.project2.StarConfData.Ship;
 import com.example.project2.StarConfData.User;
@@ -45,6 +49,8 @@ public class FleetViewActivity extends AppCompatActivity implements
     private UserDAO mUserDAO;
     private FleetDAO mFleetDAO;
     private FleetsTableDAO mFleetsTableDAO;
+    private AdmiralDAO mAdmiralDAO;
+    private StarShipDAO mStarShipDAO;
 
     Boolean mIsAdmin;
     int mFleetId;
@@ -65,6 +71,30 @@ public class FleetViewActivity extends AppCompatActivity implements
         mFleetViewActivityBinding = ActivityFleetViewBinding.inflate(getLayoutInflater());
         setContentView(mFleetViewActivityBinding.getRoot());
 
+        mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .UserDAO();
+        mStarShipDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .StarShipDAO();
+        mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .FleetDAO();
+        mFleetsTableDAO = Room.databaseBuilder(this,AppDataBase.class,AppDataBase.FLEET_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build().FleetsTableDAO();
+        mAdmiralDAO = Room.databaseBuilder(this,AppDataBase.class,AppDataBase.ADMIRAL_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build().AdmiralDAO();
+
         mIsAdmin = getIntent().getBooleanExtra(MESSAGE, true);
         mFleetId = getIntent().getIntExtra(MESSAGE_3, 0);
         mFleet = mFleetDAO.getFleetById(mFleetId);
@@ -77,30 +107,26 @@ public class FleetViewActivity extends AppCompatActivity implements
         mFleetAdmiralView = mFleetViewActivityBinding.fleetAdmiralView;
         mFleetShipView = mFleetViewActivityBinding.FleetShipView;
 
-        mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
-                .allowMainThreadQueries()
-                .fallbackToDestructiveMigration()
-                .build()
-                .UserDAO();
-        mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
-                .allowMainThreadQueries()
-                .fallbackToDestructiveMigration()
-                .build()
-                .FleetDAO();
-        mFleetsTableDAO = Room.databaseBuilder(this,AppDataBase.class,AppDataBase.FLEET_DATABASE_NAME)
-                .allowMainThreadQueries()
-                .fallbackToDestructiveMigration()
-                .build().FleetsTableDAO();
 
         mFleetShipView.setMovementMethod(new ScrollingMovementMethod());
 
         mFleetNameView.setText(mFleet.getFleetName());
-        mFleetOwnerView.setText(mFleetOwner.getUsername());
-        mFleetAdmiralView.setText(mFleetsTableDAO.getAdmiralFromFleet(mFleetId).getAdmiralName());
+        mFleetOwnerView.setText("Owner: " + mFleetOwner.getUsername());
+        mFleetAdmiralView.setText("Admiral: " + mAdmiralDAO.getAdmiralById(mFleet.getAdmiralId()).getAdmiralName());
         StringBuilder shipViewText = new StringBuilder();
-        List<Ship> ships = mFleetsTableDAO.getShipsByFleetId(mFleetId);
-        for (Ship ship : ships){
-            shipViewText.append(ship.toString());
+        for (Integer num : mFleet.getFleet()){
+            try {
+                shipViewText.append(mStarShipDAO.getShipByLogId(num).toString());
+                shipViewText.append("\n");
+            } catch (NullPointerException e){
+                Toast toast = Toast.makeText(getApplicationContext(), "Fleet does not exist!", Toast.LENGTH_SHORT);
+                toast.setMargin(50,50);
+                toast.show();
+                mFleetDAO.delete(mFleet);
+                Intent intent = FleetSelectActivity.intentFactory(getApplicationContext(), mIsAdmin,
+                        mLoggedUser.getUsername());
+                startActivity(intent);
+            }
         }
         mFleetShipView.setText(shipViewText.toString());
 
@@ -119,17 +145,18 @@ public class FleetViewActivity extends AppCompatActivity implements
 
     @Override
     public void onYesClicked(){
-        mFleetDAO.delete(mFleetDAO.getFleetById(mFleetId));
+        mFleetDAO.delete(mFleet);
         Intent intent = FleetListActivity.intentFactory(getApplicationContext(),
                 mIsAdmin,
                 mLoggedUser.getUsername());
+        startActivity(intent);
     }
 
-    public static Intent intentFactory(Context packageContext, Boolean isAdmin, String fleetOwner,
+    public static Intent intentFactory(Context packageContext, Boolean isAdmin, int fleetOwnerId,
                                        String loggedUser, int fleetId){
         Intent intent = new Intent (packageContext, FleetViewActivity.class);
         intent.putExtra(MESSAGE, isAdmin);
-        intent.putExtra(MESSAGE_1, fleetOwner);
+        intent.putExtra(MESSAGE_1, fleetOwnerId);
         intent.putExtra(MESSAGE_2, loggedUser);
         intent.putExtra(MESSAGE_3, fleetId);
         return intent;

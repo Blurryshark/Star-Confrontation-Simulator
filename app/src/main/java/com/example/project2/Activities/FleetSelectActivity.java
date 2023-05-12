@@ -38,18 +38,21 @@ public class FleetSelectActivity extends AppCompatActivity {
     private FleetSelectAdapter mFleetTwoAdapter;
 
 
-    Button mBattleButton;
-    Spinner mFleetOneSpinner;
-    Spinner mFleetTwoSpinner;
+    private Button mBattleButton;
+    private Spinner mFleetOneSpinner;
+    private Spinner mFleetTwoSpinner;
 
-    UserDAO mUserDAO;
-    FleetsTableDAO mFleetsTableDAO;
+    private UserDAO mUserDAO;
+    private FleetDAO mFleetDAO;
+    private FleetsTableDAO mFleetsTableDAO;
+
+    private User mLoggedUser;
 
     private static final String MESSAGE = "message1";
     private static final String MESSAGE_1 = "message2";
 
     public static Intent intentFactory(Context packageContext, Boolean isAdmin, String username) {
-        Intent intent = new Intent(packageContext, LandingPageActivity.class);
+        Intent intent = new Intent(packageContext, FleetSelectActivity.class);
         intent.putExtra(MESSAGE, isAdmin);
         intent.putExtra(MESSAGE_1, username);
         return intent;
@@ -63,27 +66,41 @@ public class FleetSelectActivity extends AppCompatActivity {
         mActivityFleetSelectBinding = ActivityFleetSelectBinding.inflate(getLayoutInflater());
         setContentView(mActivityFleetSelectBinding.getRoot());
 
-        initList();
 
-        mUserDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_TABLE)
+        mUserDAO = Room.databaseBuilder(getApplicationContext(), AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build()
                 .UserDAO();
-
-        mFleetsTableDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.FLEETS_DATABASE_NAME)
+        mFleetDAO = Room.databaseBuilder(getApplicationContext(), AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .FleetDAO();
+        mFleetsTableDAO = Room.databaseBuilder(getApplicationContext(), AppDataBase.class, AppDataBase.FLEETS_DATABASE_NAME)
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build()
                 .FleetsTableDAO();
 
-        mCurrentUser = mUserDAO.getUserByUsername(getIntent().getStringExtra(MESSAGE_1));
+        String username = getIntent().getStringExtra(MESSAGE_1);
+        mLoggedUser = mUserDAO.getUserByUsername(username);
+
+        if(mLoggedUser == null){
+            System.out.println("FUCK");
+            Intent intent = LandingPageActivity.intentFactory(getApplicationContext(), getIntent().getBooleanExtra(MESSAGE, false),
+                    getIntent().getStringExtra(MESSAGE_1));
+            startActivity(intent);
+        }
+
+        initList();
 
         mBattleButton = mActivityFleetSelectBinding.battleButton;
         mFleetOneSpinner = mActivityFleetSelectBinding.fleetOneSpinner;
         mFleetTwoSpinner = mActivityFleetSelectBinding.fleetTwoSpinner;
 
         mFleetOneAdapter = new FleetSelectAdapter(this, mFleetArrayList);
+        mFleetTwoAdapter = new FleetSelectAdapter(this, mFleetArrayList);
         mFleetOneSpinner.setAdapter(mFleetOneAdapter);
         mFleetTwoSpinner.setAdapter(mFleetTwoAdapter);
 
@@ -124,7 +141,7 @@ public class FleetSelectActivity extends AppCompatActivity {
     }
 
     private void initList() {
-        List<Fleet> tempList = mFleetsTableDAO.getFleetFromUser(mCurrentUser.mUserLogId);
+        List<Fleet> tempList = mFleetDAO.getAllByOwner(mLoggedUser.getUserLogId());
         mFleetArrayList = new ArrayList<>();
         for (Fleet fleet : tempList){
             mFleetArrayList.add(fleet);

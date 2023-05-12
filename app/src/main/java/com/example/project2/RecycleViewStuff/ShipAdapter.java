@@ -24,12 +24,12 @@ public class ShipAdapter extends ArrayAdapter<Ship> {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                return super.getView(position, convertView, parent);
+                return initView(position, convertView, parent);
         }
 
         @Override
         public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                return super.getDropDownView(position, convertView, parent);
+                return initView(position, convertView, parent);
         }
 
         private View initView (int position, View convertView, ViewGroup parent){

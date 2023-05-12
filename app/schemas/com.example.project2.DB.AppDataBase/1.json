@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5293cfeaa51e190bb47dac8e3f77e26d",
+    "identityHash": "6f6a71036a998c13d5c5171254b14859",
     "entities": [
       {
         "tableName": "User_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mUserLogId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mUsername` TEXT, `mPassword` TEXT, `mAdminStatus` INTEGER NOT NULL, `mFleetIdArray` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mUserLogId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mUsername` TEXT, `mPassword` TEXT, `mAdminStatus` INTEGER NOT NULL, `mFleetIdList` TEXT)",
         "fields": [
           {
             "fieldPath": "mUserLogId",
@@ -33,17 +33,17 @@
             "notNull": true
           },
           {
-            "fieldPath": "mFleetIdArray",
-            "columnName": "mFleetIdArray",
-            "affinity": "INTEGER",
-            "notNull": true
+            "fieldPath": "mFleetIdList",
+            "columnName": "mFleetIdList",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
-          "autoGenerate": true,
           "columnNames": [
             "mUserLogId"
-          ]
+          ],
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -120,17 +120,17 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": true,
           "columnNames": [
             "mShipLogId"
-          ]
+          ],
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
       },
       {
         "tableName": "Fleet_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mFleetId` INTEGER NOT NULL, `mFleetIdList` TEXT, `mAdmiralId` INTEGER NOT NULL, `mFleetName` TEXT, `mOwnerId` INTEGER NOT NULL, `fleetImage` INTEGER NOT NULL, PRIMARY KEY(`mFleetId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mFleetId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mFleetIdList` TEXT, `mAdmiralId` INTEGER NOT NULL, `mFleetName` TEXT, `mOwnerId` INTEGER NOT NULL, `fleetImage` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "mFleetId",
@@ -170,10 +170,10 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
           "columnNames": [
             "mFleetId"
-          ]
+          ],
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -202,10 +202,10 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": true,
           "columnNames": [
             "mAdmiralId"
-          ]
+          ],
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -240,11 +240,11 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
           "columnNames": [
             "mUserTableId",
             "mFleetTableId"
-          ]
+          ],
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": [
@@ -298,7 +298,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5293cfeaa51e190bb47dac8e3f77e26d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6f6a71036a998c13d5c5171254b14859')"
     ]
   }
 }

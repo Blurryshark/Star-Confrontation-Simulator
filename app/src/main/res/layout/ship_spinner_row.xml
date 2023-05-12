@@ -23,7 +23,7 @@
         android:gravity="center"
         android:text="Ship"
         android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:textSize="14sp" />
 
 
 </RelativeLayout>

@@ -1,8 +1,12 @@
 package com.example.project2.StarConfData;
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.Room;
 
+import com.example.project2.DB.AdmiralDAO;
 import com.example.project2.DB.AppDataBase;
 
 import java.util.Random;
@@ -20,9 +24,15 @@ public class Admiral {
         returnRandomAdmiral();
     }
 
-    public Admiral(String admiralId, int admiralImage) {
-        mAdmiralName = admiralId;
+    public Admiral(String admiralName, int admiralImage, Context context) {
+        AdmiralDAO mAdmiralDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.ADMIRAL_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+                .AdmiralDAO();
+        mAdmiralName = admiralName;
         mAdmiralImage = admiralImage;
+        mAdmiralDAO.insert(this);
     }
 
     private void returnRandomAdmiral() {

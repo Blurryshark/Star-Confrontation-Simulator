@@ -47,7 +47,7 @@ public class AdmiralAdapter extends ArrayAdapter<Admiral> {
 
         if (admiral != null) {
             imageViewFlag.setImageResource(admiral.getAdmiralImage());
-            textView.setText(admiral.getAdmiralId());
+            textView.setText(admiral.getAdmiralName());
         }
 
         return convertView;

@@ -1,10 +1,16 @@
 package com.example.project2.Observer;
 
+import android.content.Context;
+
 public class PositionObserver implements Observer{
     private int position;
 
     public PositionObserver() {
         super();
+    }
+
+    public void updateContext(Context context) {
+
     }
 
     @Override

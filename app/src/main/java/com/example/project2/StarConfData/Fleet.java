@@ -9,6 +9,7 @@ import androidx.room.TypeConverters;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.Converters;
+import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.FleetsTableDAO;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Entity (tableName = AppDataBase.FLEET_TABLE)
 public class Fleet {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int mFleetId;
 
     private List<Integer> mFleetIdList;
@@ -30,9 +31,17 @@ public class Fleet {
         mAdmiralId = 0;
     }
 
-    public Fleet(List<Integer> ships, int admiral){
+    public Fleet(List<Integer> ships, int admiral, String fleetName, int ownerId, Context context){
         this.mFleetIdList = ships;
         this.mAdmiralId = admiral;
+        this.mFleetName = fleetName;
+        this.mOwnerId = ownerId;
+
+        FleetDAO mFleetDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build().FleetDAO();
+        mFleetDAO.insert(this);
     }
 
     public int getFleetId() {
