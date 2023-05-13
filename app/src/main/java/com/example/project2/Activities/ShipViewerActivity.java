@@ -16,6 +16,7 @@ import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.FleetsTableDAO;
 import com.example.project2.DB.StarShipDAO;
+import com.example.project2.DB.UserDAO;
 import com.example.project2.DialogJunk.ShipDeleteConfirmationDialog;
 import com.example.project2.Observer.PositionObserver;
 import com.example.project2.R;
@@ -46,6 +47,7 @@ public class ShipViewerActivity extends AppCompatActivity implements
     private StarShipDAO mStarShipDAO;
     private FleetDAO mFleetDAO;
     private FleetsTableDAO mFleetsTableDAO;
+    private UserDAO mUserDAO;
 
     private List<Ship> mShipList;
 
@@ -74,6 +76,10 @@ public class ShipViewerActivity extends AppCompatActivity implements
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build().FleetDAO();
+        mUserDAO = Room.databaseBuilder(this,AppDataBase.class,AppDataBase.USER_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build().UserDAO();
 
         mShipList = mStarShipDAO.getAllShips();
 
@@ -103,9 +109,10 @@ public class ShipViewerActivity extends AppCompatActivity implements
                 mFleetDAO.delete(fleet);
             }
         }
-        mShipList.remove(observer.getPosition());
-        mAdapter.notifyItemRemoved(observer.getPosition());
         mStarShipDAO.delete(mShipList.get(observer.getPosition()));
+        mShipList.remove(observer.getPosition());
+        Intent intent = ShipViewerActivity.intentFactory(getApplicationContext(), getIntent().getStringExtra(MESSAGE));
+        startActivity(intent);
     }
 
     @Override
@@ -117,7 +124,9 @@ public class ShipViewerActivity extends AppCompatActivity implements
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                Intent intent = AdministratorPageActivity.intentFactory(getApplicationContext(), true, getIntent().getStringExtra(MESSAGE));
+                Intent intent = AdministratorPageActivity.intentFactory(getApplicationContext(),
+                        mUserDAO.getUserByUsername(getIntent().getStringExtra(MESSAGE)).isAdminStatus() ,
+                        getIntent().getStringExtra(MESSAGE));
                 startActivity(intent);
                 return true;
             }

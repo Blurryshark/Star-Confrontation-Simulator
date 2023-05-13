@@ -44,7 +44,12 @@ public class UserAdapterView extends RecyclerView.Adapter<UserAdapterView.UserVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.OnItemClick(position);
+                        }
+                    }
                 }
             });
         }

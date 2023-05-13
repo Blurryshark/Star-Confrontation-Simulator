@@ -6,4 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".Activities.BattleActivity">
 
+    <TextView
+        android:id="@+id/battleDisplay"
+        android:layout_width="376dp"
+        android:layout_height="695dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fadeScrollbars="true"
+        android:gravity="bottom"
+        android:scrollbars="vertical"
+        android:text="battleShit"
+        android:verticalScrollbarPosition="defaultPosition"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

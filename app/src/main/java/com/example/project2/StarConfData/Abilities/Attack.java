@@ -11,6 +11,6 @@ import com.example.project2.StarConfData.Ship;
  * request.
  * This is the Abilities.Attack interface. it extends Abilities.Ability and only has one method.*/
 public interface Attack extends Ability {
-    public Integer attack(Ship target);
+    public Integer attack(Ship target, StringBuilder output);
 
 }

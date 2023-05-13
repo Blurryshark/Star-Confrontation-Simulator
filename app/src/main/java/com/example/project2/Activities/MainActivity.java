@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.project2.DB.AdmiralDAO;
 import com.example.project2.DB.AppDataBase;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     Ship bird;
     Ship constitution;
     Ship warbird;
+    Ship D9;
 
     Admiral sisko;
     Admiral kirk;
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             bird = new Ship("bird_of_prey", 12, 10, 18, 6, 10, getApplicationContext());
             constitution = new Ship("constitution_class", 9, 12, 13, 12, 8, getApplicationContext());
             warbird = new Ship("war_bird", 4, 18, 12, 10, 10, getApplicationContext());
+            D9 = new Ship("D9_battlecruiser", 7,15,12,15,14,getApplicationContext());
         }
         if (mAdmiralDAO.getAdmirals().size() < 1) {
             sisko = new Admiral("Sisko", R.drawable.starfleetbadge, getApplicationContext());
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             picard = new Admiral("Picard", R.drawable.starfleetbadge, getApplicationContext());
         }
         if (mUserDAO.getUser().size() < 1) {
-            user = new User(defaultUsername, "User2", false);
+            user = new User(defaultUsername, "user2", false);
             admin = new User(defaultAdminName, "admin2", true);
             mUserDAO.insert(user,admin);
         }
@@ -128,9 +131,15 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = LandingPageActivity.intentFactory(getApplicationContext(),
                                 mUserDAO.getUserByUsername(username).isAdminStatus(), username);
                         startActivity(intent);
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "incorrect passowrd!",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 } else {
-                    System.out.println("suck my balls"); //not final
+                    Toast toast = Toast.makeText(getApplicationContext(), "User Doesn't Exist!",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
@@ -146,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public static Intent intentFactory (Context context){
-        Intent intent = new Intent (context, AddUserActivity.class);
+        Intent intent = new Intent (context, MainActivity.class);
         return intent;
     }
 

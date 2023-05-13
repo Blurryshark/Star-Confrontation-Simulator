@@ -123,7 +123,7 @@ public class Ship{
         mStarShipDAO.delete(ships);
     }
 
-    public Integer attackTarget(Ship target){
+    public Integer attackTarget(Ship target, StringBuilder output){
         /*
          * Because both elements of this program are ships, I want them both to have access to the torpedo and phaser attack.
          * As such, this bit randomly selects an attack for them to use by generating a random number and checking if it is even
@@ -143,22 +143,22 @@ public class Ship{
         int atk = rand.nextInt();
         Integer tempStr = this.str;         // Temporary variables so that str and agi can be returned to their default values
         Integer tempAgi = target.agi;       // after every attack. This is necessary to keep the pool of random values consistent
-        this.str = getAttribute(getStr(), tempStr);
-        target.agi = getAttribute(target.getAgi(), tempAgi);
+        this.str = getAttribute(5, tempStr);
+        target.agi = getAttribute(5, tempAgi);
         Integer dmg;
         if ((atk % 2) != 0){
-            dmg = phaserAttack.attack(target);
-            target.takeDamage(dmg, 1);
+            dmg = phaserAttack.attack(target, output);
+            target.takeDamage(dmg, 1, output);
         } else {
-            dmg = torpAttack.attack(target);
-            target.takeDamage(dmg, 2);
+            dmg = torpAttack.attack(target, output);
+            target.takeDamage(dmg, 2, output);
         }
         this.str = tempStr;                 // returning the stats to their default values
         target.agi = tempAgi;               //
         return dmg;
     }
 
-    boolean takeDamage (Integer damage, int atkType){
+    boolean takeDamage (Integer damage, int atkType, StringBuilder output){
         /*
          * I am actually quite proud of this. so the first thing this does is determine whether the damage from the attack
          * being passed in was made by phasers or by torpedoes. This is simply done by the second parameter being passed in.
@@ -179,7 +179,7 @@ public class Ship{
         } else if (getShields() ==0 && atkType ==2){ // atk 2 means torpedoes
             damage *= 2;
         }
-        System.out.println("The ship was hit for " + damage + "!");
+        output.append("\nThe ship was hit for " + damage + "!\n\n");
         /*
          * The shields act as a layer of protection for the ship's hull, so if the shields are up, all incoming damage will
          * be dealt to the shields FIRST. the shields cannot fall below 0, as this is physcially impossible, so, any incoming
@@ -202,10 +202,11 @@ public class Ship{
         }
         //This if statement triggers if the ship is destroyed.
         if (getHull() <= 0){
-            System.out.println("Matter/Anti-Matter Containment breach! The ship was destroyed!");
+            output.append("\nMatter/Anti-Matter Containment breach! The ship was destroyed!\n\n");
+            return hull >0;
         }
 
-        System.out.println(this.toString());
+        output.append(this.toString());
         return hull > 0;
     }
 
@@ -222,6 +223,9 @@ public class Ship{
             Integer temp = min;
             min = max;
             max = temp;
+        }
+        if (min == max){
+            return 1;
         }
         return rand.nextInt(max-min) + min;
     }
@@ -341,6 +345,7 @@ public class Ship{
 
     @Override
     public String toString(){
-        return  shields + "/" + maxShields + " shield integrity; " + hull + "/" + maxHull + " hull integrity";
+        return  mShipType + " has " + shields + "/" + maxShields + " shield integrity; " + hull +
+                "/" + maxHull + " hull integrity\n";
     }
 }

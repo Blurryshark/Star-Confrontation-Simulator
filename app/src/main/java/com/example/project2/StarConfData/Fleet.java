@@ -11,6 +11,7 @@ import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.Converters;
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.FleetsTableDAO;
+import com.example.project2.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class Fleet {
         this.mFleetIdList = ships;
         this.mAdmiralId = admiral;
         this.mFleetName = fleetName;
+        this.fleetImage = R.drawable.starfleetbadge;
         this.mOwnerId = ownerId;
 
         FleetDAO mFleetDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)

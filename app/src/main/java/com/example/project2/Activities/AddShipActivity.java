@@ -1,17 +1,21 @@
 package com.example.project2.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.StarShipDAO;
+import com.example.project2.DB.UserDAO;
 import com.example.project2.R;
 import com.example.project2.StarConfData.Ship;
 import com.example.project2.databinding.ActivityAddShipBinding;
@@ -38,6 +42,7 @@ public class AddShipActivity extends AppCompatActivity {
     EditText mHullText;
 
     StarShipDAO mStarShipDAO;
+    UserDAO mUserDAO;
 
     private static final String MESSAGE = "message1";
     @Override
@@ -53,6 +58,10 @@ public class AddShipActivity extends AppCompatActivity {
                 .fallbackToDestructiveMigration()
                 .build()
                 .StarShipDAO();
+        mUserDAO =Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build().UserDAO();
 
         mSubmitButton = mActivityAddShipBinding.confirmButton;
         mCancelButton = mActivityAddShipBinding.cancelButton;
@@ -93,6 +102,24 @@ public class AddShipActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item = menu.add("addShip");
+        item.setIcon(R.drawable.starfleetbadge);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                Intent intent = AdministratorPageActivity.intentFactory(getApplicationContext(),
+                        mUserDAO.getUserByUsername(getIntent().getStringExtra(MESSAGE)).isAdminStatus(),
+                        getIntent().getStringExtra(MESSAGE));
+                startActivity(intent);
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
     public static Intent intentFactory(Context context, String loggedUser){
         Intent intent = new Intent(context, AddShipActivity.class);
         intent.putExtra(MESSAGE, loggedUser);

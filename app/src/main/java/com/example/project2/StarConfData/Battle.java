@@ -7,8 +7,10 @@ import androidx.room.Room;
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetDAO;
 import com.example.project2.DB.FleetsTableDAO;
+import com.example.project2.DB.StarShipDAO;
 import com.example.project2.DB.UserDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -22,7 +24,7 @@ public class Battle {
 
     Context mContext;
 
-    FleetsTableDAO mFleetsTableDAO;
+    StarShipDAO mStarShipDAO;
 
     public Battle (User user, Fleet fleetOne, Fleet fleetTwo, Context context){
         mLoggedUser = user;
@@ -30,57 +32,86 @@ public class Battle {
         mBattleFleetTwo = fleetTwo;
         mContext = context;
 
-        mFleetsTableDAO = Room.databaseBuilder(mContext, AppDataBase.class, AppDataBase.FLEETS_DATABASE_NAME)
+        mStarShipDAO = Room.databaseBuilder(context, AppDataBase.class, AppDataBase.SHIP_DATABASE_NAME)
                 .allowMainThreadQueries()
-                .fallbackToDestructiveMigration()
-                .build()
-                .FleetsTableDAO();
+                .allowMainThreadQueries()
+                .build().StarShipDAO();
 
-        mShipListOne = mFleetsTableDAO.getShipsByFleetId(mBattleFleetOne.getFleetId());
-        mShipListTwo = mFleetsTableDAO.getShipsByFleetId(mBattleFleetTwo.getFleetId());
-
+        mShipListOne = initList(mBattleFleetOne);
+        mShipListTwo = initList(mBattleFleetTwo);
     }
 
     public Battle () {
         Battle star_confrontation = new Battle (null, null, null, null);
     }
 
-    public void Fight(){
-        while (continueFight()){
+    public static StringBuilder Fight(Battle battle, Fleet fleetOne, Fleet fleetTwo){
+        StringBuilder output = new StringBuilder();
+        while (continueFight(battle, fleetOne, fleetTwo, output)){
             Random rand = new Random();
             int rand1 = rand.nextInt(3);
             int rand2 = rand.nextInt(3);
             /*This while loop SHOULD keep generating random numbers until we land on a ship that is
             * still alive */
-            while(mShipListTwo.get(rand2).getHull() <= 0){
+            while(battle.mShipListTwo.get(rand2).getHull() <= 0){
                 rand2 = rand.nextInt(3);
             }
-            mShipListOne.get(rand1).attackTarget(mShipListTwo.get(rand2));
+            battle.mShipListOne.get(rand1).attackTarget(battle.mShipListTwo.get(rand2), output);
 
             rand1 = rand.nextInt(3);
             rand2 = rand.nextInt(3);
-            while (mShipListOne.get(rand1).getHull() <= 0){
+            while (battle.mShipListOne.get(rand1).getHull() <= 0){
                 rand1 = rand.nextInt(3);
             }
-            mShipListTwo.get(rand2).attackTarget(mShipListOne.get(rand1));
+            battle.mShipListTwo.get(rand2).attackTarget(battle.mShipListOne.get(rand1), output);
         }
+        return output;
     }
 
-    public boolean continueFight(){
-        if (!isDestroyed(mShipListOne)) {
+    public static boolean continueFight(Battle battle, Fleet fleetOne, Fleet fleetTwo, StringBuilder output){
+        if (isDestroyed(battle.mShipListOne)) {
+            output.append("\n" + fleetOne.toString() + " is destroyed in the heat of interstellar battle!\n");
             return false;
-        } else if (!isDestroyed(mShipListTwo)){
+        } else if (isDestroyed(battle.mShipListTwo)){
+            output.append("\n" + fleetTwo.toString() + " is destroyed in the heat of interstellar battle!\n");
             return false;
         }
         return true;
     }
     /*This method is going to check and see if all members of a given fleet have been destroyed*/
-    public boolean isDestroyed (List<Ship> shipList) {
+    public static boolean isDestroyed (List<Ship> shipList) {
+        int wreckCount = 0;
         for (Ship ship : shipList) {
             if(ship.getHull() <= 0){
-                return true;
+                wreckCount++;
             }
         }
-        return false;
+        return wreckCount == 3;
+    }
+
+    public List<Ship> initList (Fleet fleet){
+        List<Ship> output = new ArrayList<>();
+        for (int i = 0; i < fleet.getFleet().size(); i++){
+            output.add(mStarShipDAO.getShipByLogId(fleet.getFleet().get(i)));
+            output.get(i).setHull(output.get(i).getMaxHull());
+            output.get(i).setShields(output.get(i).getMaxShields());
+        }
+        return output;
+    }
+
+    public Fleet getBattleFleetOne() {
+        return mBattleFleetOne;
+    }
+
+    public void setBattleFleetOne(Fleet battleFleetOne) {
+        mBattleFleetOne = battleFleetOne;
+    }
+
+    public Fleet getBattleFleetTwo() {
+        return mBattleFleetTwo;
+    }
+
+    public void setBattleFleetTwo(Fleet battleFleetTwo) {
+        mBattleFleetTwo = battleFleetTwo;
     }
 }

@@ -24,12 +24,12 @@ public interface FleetDAO {
     @Update
     void update(Fleet... fleets);
 
-    @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " WHERE mOwnerId = :loggedUserId")
+    @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " WHERE mOwnerId=:loggedUserId")
     List<Fleet> getAllByOwner (int loggedUserId);
 
     @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " ORDER BY mFleetName desc")
     List<Fleet> getFleets ();
 
-    @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " WHERE mFleetId = :fleetId")
+    @Query("SELECT * FROM " + AppDataBase.FLEET_TABLE + " WHERE mFleetId=:fleetId")
     Fleet getFleetById(int fleetId);
 }

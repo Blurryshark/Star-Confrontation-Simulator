@@ -11,16 +11,15 @@ public class PhaserAttack implements Attack{
     }
 
     @Override
-    public Integer attack(Ship target){
+    public Integer attack(Ship target, StringBuilder output){
 
-        String message = attacker + " uses a phaser attack on " + target;
-        System.out.println(message);
-        Integer output = attacker.getStr() - target.getAgi();
-        if( output < 0 ){
-            return 0;
-        }
+        output.append(attacker.getShipType() + " uses a phaser attack on " + target.getShipType() + "\n");
+        Integer result = attacker.getStr() - attacker.getDef();
         /*The damage returned by this attack function is determined by the difference in the attackers strength and the
          * defenders... defense. go figure.*/
-        return attacker.getStr() - target.getDef();
+        if(result < 0){
+            return 0;
+        }
+        return 0;
     }
 }

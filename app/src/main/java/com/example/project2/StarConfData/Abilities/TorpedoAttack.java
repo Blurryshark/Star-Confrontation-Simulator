@@ -10,11 +10,10 @@ public class TorpedoAttack implements Attack{
     }
 
     @Override
-    public Integer attack(Ship target){
-        String message = attacker + " uses a torpedo attack on " + target;
-        System.out.println(message);
-        Integer output = attacker.getStr() - target.getAgi();
-        if( output < 0 ){
+    public Integer attack(Ship target, StringBuilder output){
+        output.append("\n"+attacker.getShipType() + " uses a torpedo attack on " + target.getShipType() + "\n");
+        Integer result = attacker.getStr() - target.getAgi();
+        if( result < 0 ){
             return 0;
         }
         /*The damage returned by this attack function is determined by the difference in the attackers strength and the

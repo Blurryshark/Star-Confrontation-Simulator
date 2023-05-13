@@ -1,17 +1,21 @@
 package com.example.project2.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.project2.DB.AdmiralDAO;
 import com.example.project2.DB.AppDataBase;
@@ -189,14 +193,17 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
                 for (Integer i : newFleetShips.keySet()){
                     newFleetArrayList.add(newFleetShips.get(i).getShipLogId());
                 }
-                String newFleetName = mFleetName.getText().toString();
-                if (newFleetName != null){
+                String newFleetName = mFleetName.getText().toString().trim();
+
+                if (newFleetName.length() > 0 && !newFleetName.contains("\n")){
                     Fleet newFleet = new Fleet(newFleetArrayList, newAdmiral.getAdmiralId(), newFleetName,
                             mLoggedUser.mUserLogId, getApplicationContext());
 
                     Intent intent = LandingPageActivity.intentFactory(getApplicationContext(), getIntent().getBooleanExtra(MESSAGE,
                             false), mLoggedUser.getUsername());
                     startActivity(intent);
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(),"invalid fleet name", Toast.LENGTH_SHORT);
                 }
             }
         });
@@ -216,6 +223,24 @@ public class FleetBuilderActivity extends AppCompatActivity implements AdapterVi
             mShipList.add(ships);
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item = menu.add("addShip");
+        item.setIcon(R.drawable.starfleetbadge);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                Intent intent = LandingPageActivity.intentFactory(getApplicationContext(), mLoggedUser.isAdminStatus(),
+                        getIntent().getStringExtra(MESSAGE_1));
+                startActivity(intent);
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     public static Intent intentFactory(Context packageContext, Boolean isAdmin, String username){

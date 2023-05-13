@@ -1,11 +1,16 @@
 package com.example.project2.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.project2.DB.AppDataBase;
 import com.example.project2.DB.FleetDAO;
@@ -20,6 +25,7 @@ import com.example.project2.databinding.ActivityBattleBinding;
 public class BattleActivity extends AppCompatActivity {
 
     ActivityBattleBinding mActivityBattleBinding;
+    TextView mBattleText;
 
     UserDAO mUserDAO;
     FleetDAO mFleetDAO;
@@ -53,19 +59,42 @@ public class BattleActivity extends AppCompatActivity {
                 .build()
                 .FleetsTableDAO();
 
-        mFleetDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.USER_DATABASE_NAME)
+        mFleetDAO = Room.databaseBuilder(getApplicationContext(), AppDataBase.class, AppDataBase.FLEET_DATABASE_NAME)
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build()
                 .FleetDAO();
 
+        mBattleText = mActivityBattleBinding.battleDisplay;
+        mBattleText.setMovementMethod(new ScrollingMovementMethod());
+
+        int fleetIdOne = getIntent().getIntExtra(MESSAGE_1,50);
+        int fleetIdTwo = getIntent().getIntExtra(MESSAGE_2,50);
         mLoggedUser = mUserDAO.getUserByUsername(getIntent().getStringExtra(MESSAGE));
-        mBattleFleetOne = mFleetDAO.getFleetById(getIntent().getIntExtra(MESSAGE_1, 1));
-        mBattleFleetTwo = mFleetDAO.getFleetById(getIntent().getIntExtra(MESSAGE_2, 2));
+        mBattleFleetOne = mFleetDAO.getFleetById(fleetIdOne);
+        mBattleFleetTwo = mFleetDAO.getFleetById(fleetIdTwo);
 
         Battle battle = new Battle(mLoggedUser, mBattleFleetOne, mBattleFleetTwo, getApplicationContext());
-        battle.Fight();
+        mBattleText.setText(Battle.Fight(battle, battle.getBattleFleetOne(), battle.getBattleFleetTwo()).toString());
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item = menu.add("addShip");
+        item.setIcon(R.drawable.starfleetbadge);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                Intent intent = FleetSelectActivity.intentFactory(getApplicationContext(), mLoggedUser.isAdminStatus(),
+                        mLoggedUser.getUsername());
+                startActivity(intent);
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     public static Intent intentFactory(Context packageContext, String username, int fleetOneId,

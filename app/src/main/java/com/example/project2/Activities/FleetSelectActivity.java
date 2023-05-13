@@ -1,5 +1,6 @@
 package com.example.project2.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -7,6 +8,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -132,16 +135,38 @@ public class FleetSelectActivity extends AppCompatActivity {
         mBattleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = BattleActivity.intentFactory(getApplicationContext(), mCurrentUser.getUsername(),
+                Intent intent = BattleActivity.intentFactory(getApplicationContext(), mLoggedUser.getUsername(),
                         mSelectedFleetOne.getFleetId(), mSelectedFleetTwo.getFleetId());
                 startActivity(intent);
             }
         });
         
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item = menu.add("addShip");
+        item.setIcon(R.drawable.starfleetbadge);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+                Intent intent = LandingPageActivity.intentFactory(getApplicationContext(), mLoggedUser.isAdminStatus(),
+                        mLoggedUser.getUsername());
+                startActivity(intent);
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
 
     private void initList() {
-        List<Fleet> tempList = mFleetDAO.getAllByOwner(mLoggedUser.getUserLogId());
+        List<Fleet> tempList;
+        if(mLoggedUser.isAdminStatus()){
+            tempList = mFleetDAO.getFleets();
+        } else {
+            tempList = mFleetDAO.getAllByOwner(mLoggedUser.getUserLogId());
+        }
         mFleetArrayList = new ArrayList<>();
         for (Fleet fleet : tempList){
             mFleetArrayList.add(fleet);

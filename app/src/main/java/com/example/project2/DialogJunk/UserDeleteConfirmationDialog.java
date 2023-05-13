@@ -41,7 +41,7 @@ public class UserDeleteConfirmationDialog extends AppCompatDialogFragment {
 
         try{
             listener = (UserDeleteConfirmationDialogListener) context;
-        } catch (ClassCastException e){
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement " +
                     "UserDeleteConfirmationDialogListener");
         }

@@ -56,18 +56,18 @@ public class FleetSelectAdapter extends ArrayAdapter<Fleet> {
 
         ImageView imageViewFlag = convertView.findViewById(R.id.fleet_pic);
         TextView fleetNameView = convertView.findViewById(R.id.fleet_name);
-        TextView shipOneView = convertView.findViewById(R.id.shipOneText);
+       /* TextView shipOneView = convertView.findViewById(R.id.shipOneText);
         TextView shipTwoView = convertView.findViewById(R.id.shipTwoText);
-        TextView shipThreeView = convertView.findViewById(R.id.shipThreeText);
+        TextView shipThreeView = convertView.findViewById(R.id.shipThreeText);*/
 
         Fleet fleet = getItem(position);
 
         if(fleet != null){
             imageViewFlag.setImageResource(fleet.getFleetImage());
             fleetNameView.setText(fleet.getFleetName());
-            shipOneView.setText(mStarShipDAO.getShipByLogId(fleet.getFleet().get(0)).getShipType());
+            /*shipOneView.setText(mStarShipDAO.getShipByLogId(fleet.getFleet().get(0)).getShipType());
             shipTwoView.setText(mStarShipDAO.getShipByLogId(fleet.getFleet().get(1)).getShipType());
-            shipThreeView.setText(mStarShipDAO.getShipByLogId(fleet.getFleet().get(2)).getShipType());
+            shipThreeView.setText(mStarShipDAO.getShipByLogId(fleet.getFleet().get(2)).getShipType());*/
         }
 
         return convertView;

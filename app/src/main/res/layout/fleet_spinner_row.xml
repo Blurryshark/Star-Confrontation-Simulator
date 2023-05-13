@@ -15,48 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/fleet_pic"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="16dp"
         android:layout_toEndOf="@+id/fleet_pic"
         android:gravity="center"
-        android:text="Ship"
+        android:text="Admiral"
         android:textColor="@color/black"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/shipOneText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/fleet_pic"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="66dp"
-        android:layout_toEndOf="@+id/fleet_pic"
-        android:text="ship-one"
-        android:textSize="14sp"/>
-
-    <TextView
-        android:id="@+id/shipThreeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/shipTwoText"
-        android:layout_alignTop="@+id/shipOneText"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="66dp"
-        android:layout_toEndOf="@+id/fleet_name"
-        android:text="ship-three"
-        android:textSize="14sp"/>
-
-    <TextView
-        android:id="@+id/shipTwoText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/shipOneText"
-        android:layout_marginStart="30dp"
-        android:layout_toEndOf="@+id/shipOneText"
-        android:text="ship-two"
-        android:textSize="14sp"/>
+        android:textSize="30sp" />
 
 </RelativeLayout>
